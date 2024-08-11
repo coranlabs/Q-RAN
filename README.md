@@ -21,7 +21,7 @@
 2. [Need for Q-RAN](#need-for-qran)
    - [Problem Statement](#problem-statement)
    - [Solution](#solution)
-3. [Migration to Classical O-RAN Post-Quantum O-RAN](#migration-to-classical-o-ran-post-quantum-o-ran)
+3. [Migration from Classical O-RAN to Post-Quantum O-RAN](#migration-from-classical-o-ran-to-post-quantum-o-ran)
 
 
 
@@ -59,7 +59,7 @@ Q-RAN addresses these needs by integrating the following post-quantum techniques
 
 * `PQ-DTLS`: Post-Quantum Datagram Transport Layer Security for securing datagram communications.
 
-## Migration to Classical O-RAN Post-Quantum O-RAN
+## Migration from Classical O-RAN to Post-Quantum O-RAN
 
 <img src="./images/migration_qran.jpg" alt="Architecture Diagram" style="width: 1200px;">
 
@@ -70,5 +70,5 @@ One of the best things about O-RAN is its extensive use of different interfaces 
 
 By integrating post-quantum cryptography and QRNGs, Q-RAN ensures that O-RAN is fortified against the quantum threats of the future. Embrace Q-RAN today to secure your network for tomorrow's quantum era.
 
-Q-RAN has been tested with [QORE](https://github.com/coranlabs/QORE)
+> Q-RAN has been tested with [QORE](https://github.com/coranlabs/QORE)
 
