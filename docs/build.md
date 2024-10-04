@@ -10,8 +10,6 @@
 To build and run the Q-RAN stack, a few dependencies must be installed and configured correctly. These include:
 
 * **DPDK** (Data Plane Development Kit)
-* **OpenSSL** (with post-quantum cryptographic support)
-* **liboqs** and **oqs-provider** (from the Open Quantum Safe project)
 
 ---
 
@@ -103,31 +101,8 @@ This should return a long list of `-lrte_*` libraries, indicating successful ins
 
 ---
 
-### 3. Setting Up PQC Libraries
 
-Q-RAN integrates post-quantum cryptography using OpenSSL, liboqs, and oqs-provider. These libraries must be cloned and built in a specific location.
-
-**Required path structure:**
-
-All libraries must be placed inside the following directory:
-
-```
-<project-directory>/pqc/
-```
-
-**Expected contents:**
-
-```
-pqc/
-├── CMakeLists.txt
-├── dtls/
-├── liboqs/
-├── openssl/
-└── oqs-provider/
-```
----
-
-### 4. Installing LinuxPTP (ptp4l and phc2sys)
+### 3. Installing LinuxPTP (ptp4l and phc2sys)
 
 Q-RAN relies on **S-Plane synchronization** for accurate timing. This is handled by `ptp4l` and `phc2sys` from the [LinuxPTP](https://github.com/richardcochran/linuxptp) project.
 
