@@ -9,8 +9,8 @@
       </a>
     </td>
     <td style="border-collapse: collapse; border: none; vertical-align: center;">
-      <b><h1>Q-RAN: Quantumized O-RAN  </h1></b>
-      <b><h2>Post-Quantum O-RAN using Post-Quantum Cryptography & QRNG</h2></b>
+      <b><h1>Q-RAN: Quantum Secure O-RAN  </h1></b>
+      <b><h2>O-RAN integrated with Post Quantum Cryptography</h2></b>
     </td>
   </tr>
 </table>
