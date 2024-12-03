@@ -1,0 +1,313 @@
+/*
+ * Licensed to the OpenAirInterface (OAI) Software Alliance under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The OpenAirInterface Software Alliance licenses this file to You under
+ * the OAI Public License, Version 1.1  (the "License"); you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.openairinterface.org/?page_id=698
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *-------------------------------------------------------------------------------
+ * For more information about the OpenAirInterface (OAI) Software Alliance:
+ *      contact@openairinterface.org
+ */
+
+/*! \file fapi_nr_l1.c
+ * \brief functions for FAPI L1 interface
+ * \author R. Knopp, WEI-TAI CHEN
+ * \date 2017, 2018
+ * \version 0.1
+ * \company Eurecom, NTUST
+ * \email: knopp@eurecom.fr, kroempa@gmail.com
+ * \note
+ * \warning
+ */
+#ifdef ENABLE_AERIAL
+#include "nfapi/oai_integration/aerial/fapi_vnf_p5.h"
+#endif
+#include "fapi_nr_l1.h"
+#include "common/ran_context.h"
+#include "PHY/NR_TRANSPORT/nr_transport_proto.h"
+#include "PHY/NR_TRANSPORT/nr_dlsch.h"
+#include "PHY/NR_TRANSPORT/nr_dci.h"
+#include "nfapi/oai_integration/vendor_ext.h"
+#include "openair2/NR_PHY_INTERFACE/nr_sched_response.h"
+
+extern int oai_nfapi_dl_tti_req(nfapi_nr_dl_tti_request_t *dl_config_req);
+extern int oai_nfapi_tx_data_req(nfapi_nr_tx_data_request_t *tx_data_req);
+extern int oai_nfapi_ul_dci_req(nfapi_nr_ul_dci_request_t *ul_dci_req);
+extern int oai_nfapi_ul_tti_req(nfapi_nr_ul_tti_request_t *ul_tti_req);
+
+
+extern uint8_t nfapi_mode;
+
+void handle_nr_nfapi_ssb_pdu(processingData_L1tx_t *msgTx,int frame,int slot,
+                             nfapi_nr_dl_tti_request_pdu_t *dl_tti_pdu)
+{
+
+  // AssertFatal(dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.bchPayloadFlag== 1, "bchPayloadFlat %d != 1\n",
+  //             dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.bchPayloadFlag);
+
+  if (dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.bchPayloadFlag != 1) {
+    SM_Logs(LOG_ERROR, _F1AP_, "bchPayloadFlag %d != 1\n", 
+            dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.bchPayloadFlag);
+    return -1; // Return an appropriate error code or handle it as needed
+}
+
+
+  uint8_t i_ssb = dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.SsbBlockIndex;
+
+  //log_d(NR_PHY,"%d.%d : ssb index %d pbch_pdu: %x\n",frame,slot,i_ssb,dl_tti_pdu->ssb_pdu.ssb_pdu_rel15.bchPayload);
+ if (msgTx->ssb[i_ssb].active) {
+    SM_Logs(LOG_ERROR, _F1AP_, "SSB PDU with index %d is already active\n", i_ssb);
+    return -1; // Return an appropriate error code or handle the error as needed
+} else {
+    msgTx->ssb[i_ssb].active = true;
+    memcpy((void *)&msgTx->ssb[i_ssb].ssb_pdu, &dl_tti_pdu->ssb_pdu, sizeof(dl_tti_pdu->ssb_pdu));
+}
+
+}
+
+/*void handle_nr_nfapi_pdsch_pdu(PHY_VARS_gNB *gNB,int frame,int subframe,gNB_L1_rxtx_proc_t *proc,
+                            uint8_t codeword_index,
+                            uint8_t *sdu)
+{
+
+	int UE_id = 0; //Hardcode UE_id for now
+	int harq_pid;
+
+	NR_gNB_DLSCH_t *dlsch0=NULL, *dlsch1=NULL;
+	NR_DL_gNB_HARQ_t *dlsch0_harq=NULL,*dlsch1_harq=NULL;
+
+    // Based on nr_fill_dci_and_dlsch only gNB->dlsch[0][0] gets filled now. So maybe we do not need dlsch1.
+	dlsch0 = gNB->dlsch[UE_id][0];
+	dlsch1 = gNB->dlsch[UE_id][1];
+
+	harq_pid        = dlsch0->harq_ids[subframe];
+	dlsch0_harq     = dlsch0->harq_processes[harq_pid];
+	dlsch1_harq     = dlsch1->harq_processes[harq_pid];
+
+
+	//if (dlsch0_harq->round==0) {  //get pointer to SDU if this a new SDU
+    if(sdu == NULL) {
+      //log_e(PHY,"NFAPI: SFN/SF:%04d%d proc:TX:[frame %d subframe %d]: programming dlsch for round 0 \n",
+            frame,subframe,
+            proc->frame_tx,proc->slot_tx);
+      return;
+    }
+    //AssertFatal(sdu!=NULL,"NFAPI: SFN/SF:%04d%d proc:TX:[frame %d subframe %d]: programming dlsch for round 0, rnti %x, UE_id %d, harq_pid %d : sdu is null for pdu_index %d dlsch0_harq[round:%d SFN/SF:%d%d pdu:%p mcs:%d ndi:%d pdschstart:%d]\n",
+    //            frame,subframe,
+    //            proc->frame_tx,proc->subframe_tx,rel8->rnti,UE_id,harq_pid,
+    //            dl_tti_pdu->pdsch_pdu.pdsch_pdu_rel8.pdu_index,dlsch0_harq->round,dlsch0_harq->frame,dlsch0_harq->subframe,dlsch0_harq->pdu,dlsch0_harq->mcs,dlsch0_harq->ndi,dlsch0_harq->pdsch_start);
+    if (codeword_index == 0) dlsch0_harq->pdu                    = sdu;
+    else                     dlsch1_harq->pdu                    = sdu;
+    LOG_I(PHY, "SFN/SF: %d/%d DLSCH PDU filled \n",frame, subframe);
+//  }
+
+}*/
+
+void handle_nfapi_nr_csirs_pdu(processingData_L1tx_t *msgTx, int frame, int slot, nfapi_nr_dl_tti_csi_rs_pdu *csirs_pdu)
+{
+  int found = 0;
+
+  for (int id = 0; id < NR_SYMBOLS_PER_SLOT; id++) {
+    NR_gNB_CSIRS_t *csirs = &msgTx->csirs_pdu[id];
+    if (csirs->active == 0) {
+      //log_d(NR_PHY,"Frame %d Slot %d CSI_RS with ID %d is now active\n",frame,slot,id);
+      csirs->active = 1;
+      memcpy((void*)&csirs->csirs_pdu, (void*)csirs_pdu, sizeof(nfapi_nr_dl_tti_csi_rs_pdu));
+      found = 1;
+      break;
+    }
+  }
+  if (found == 0){
+    ;
+  }
+    //log_e(MAC,"CSI-RS list is full\n");
+}
+
+void handle_nr_nfapi_pdsch_pdu(processingData_L1tx_t *msgTx,
+                            nfapi_nr_dl_tti_pdsch_pdu *pdsch_pdu,
+                            uint8_t *sdu)
+{
+
+  nr_fill_dlsch(msgTx,pdsch_pdu,sdu);
+
+}
+
+void nr_schedule_response(NR_Sched_Rsp_t *Sched_INFO)
+{
+  // copy data from L2 interface into L1 structures
+  module_id_t                   Mod_id       = Sched_INFO->module_id;
+  nfapi_nr_dl_tti_request_t     *DL_req      = &Sched_INFO->DL_req;
+  nfapi_nr_tx_data_request_t    *TX_req      = &Sched_INFO->TX_req;
+  nfapi_nr_ul_tti_request_t     *UL_tti_req  = &Sched_INFO->UL_tti_req;
+  nfapi_nr_ul_dci_request_t     *UL_dci_req  = &Sched_INFO->UL_dci_req;
+  frame_t                       frame        = Sched_INFO->frame;
+  sub_frame_t                   slot         = Sched_INFO->slot;
+
+if (RC.gNB == NULL) {
+    SM_Logs(LOG_ERROR, _F1AP_, "RC.gNB is null\n");
+    
+}
+
+if (RC.gNB[Mod_id] == NULL) {
+    SM_Logs(LOG_ERROR, _F1AP_, "RC.gNB[%d] is null\n", Mod_id);
+   
+}
+
+
+  PHY_VARS_gNB *gNB = RC.gNB[Mod_id];
+  start_meas(&gNB->schedule_response_stats);
+
+  nfapi_nr_config_request_scf_t *cfg = &gNB->gNB_config;
+
+  int slot_type = nr_slot_select(cfg,frame,slot);
+
+  uint8_t number_dl_pdu             = (DL_req==NULL) ? 0 : DL_req->dl_tti_request_body.nPDUs;
+  uint8_t number_ul_dci_pdu         = (UL_dci_req==NULL) ? 0 : UL_dci_req->numPdus;
+  uint8_t number_ul_tti_pdu         = (UL_tti_req==NULL) ? 0 : UL_tti_req->n_pdus;
+  uint8_t number_tx_data_pdu        = (TX_req == NULL) ? 0 : TX_req->Number_of_PDUs;
+
+  clear_slot_beamid(gNB, slot);  // reset beam_id information for the slot to be processed
+
+  if (NFAPI_MODE == NFAPI_MONOLITHIC) {
+    if (slot_type == NR_DOWNLINK_SLOT || slot_type == NR_MIXED_SLOT) {
+      processingData_L1tx_t *msgTx = gNB->msgDataTx;
+      msgTx->num_pdsch_slot = 0;
+      msgTx->num_dl_pdcch = 0;
+      msgTx->num_ul_pdcch = number_ul_dci_pdu;
+      msgTx->slot = slot;
+      msgTx->frame = frame;
+      /* store the sched_response_id for the TX thread to release it when done */
+      msgTx->sched_response_id = Sched_INFO->sched_response_id;
+
+      for (int i=0;i<number_dl_pdu;i++) {
+        nfapi_nr_dl_tti_request_pdu_t *dl_tti_pdu = &DL_req->dl_tti_request_body.dl_tti_pdu_list[i];
+        //log_d(NR_PHY,"NFAPI: dl_pdu %d : type %d\n",i,dl_tti_pdu->PDUType);
+        switch (dl_tti_pdu->PDUType) {
+          case NFAPI_NR_DL_TTI_SSB_PDU_TYPE:
+            handle_nr_nfapi_ssb_pdu(msgTx,frame,slot,
+                                    dl_tti_pdu);
+            break;
+
+          case NFAPI_NR_DL_TTI_PDCCH_PDU_TYPE:
+            //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_DL_TTI_PDCCH_PDU_TYPE for %d.%d\n",frame,slot,DL_req->SFN,DL_req->Slot);
+            msgTx->pdcch_pdu[msgTx->num_dl_pdcch] = dl_tti_pdu->pdcch_pdu;
+            msgTx->num_dl_pdcch++;
+            break;
+
+          case NFAPI_NR_DL_TTI_CSI_RS_PDU_TYPE:
+            //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_DL_TTI_CSI_RS_PDU_TYPE for %d.%d\n",frame,slot,DL_req->SFN,DL_req->Slot);
+            handle_nfapi_nr_csirs_pdu(msgTx,frame,slot,&dl_tti_pdu->csi_rs_pdu);
+            break;
+
+          case NFAPI_NR_DL_TTI_PDSCH_PDU_TYPE:
+            //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_DL_TTI_PDSCH_PDU_TYPE for %d.%d\n",frame,slot,DL_req->SFN,DL_req->Slot);
+            nfapi_nr_dl_tti_pdsch_pdu_rel15_t *pdsch_pdu_rel15 = &dl_tti_pdu->pdsch_pdu.pdsch_pdu_rel15;
+            uint16_t pduIndex = pdsch_pdu_rel15->pduIndex;
+            if (TX_req->pdu_list[pduIndex].num_TLV != 1) {
+             SM_Logs(LOG_ERROR, _F1AP_, "TX_req->pdu_list[%d].num_TLV %d != 1\n", 
+                     pduIndex, TX_req->pdu_list[pduIndex].num_TLV);
+             return -1; // Return an appropriate error code or handle the error as needed
+            }         
+
+            uint8_t *sdu = (uint8_t *)TX_req->pdu_list[pduIndex].TLVs[0].value.direct;
+            if (msgTx->num_pdsch_slot >= gNB->max_nb_pdsch) {
+           SM_Logs(LOG_ERROR, _F1AP_, "Number of PDSCH PDUs %d exceeded the limit %d\n",
+                   msgTx->num_pdsch_slot, gNB->max_nb_pdsch);
+           return -1; // Return an appropriate error code or handle the error as needed
+            }       
+
+            handle_nr_nfapi_pdsch_pdu(msgTx,&dl_tti_pdu->pdsch_pdu, sdu);
+        }
+      }
+
+      for (int i=0; i<number_ul_dci_pdu; i++)
+        msgTx->ul_pdcch_pdu[i] = UL_dci_req->ul_dci_pdu_list[i];
+
+      /* Both the current thread and the TX thread will access the sched_info
+       * at the same time, so increase its reference counter, so that it is
+       * released only when both threads are done with it.
+       */
+      inc_ref_sched_response(Sched_INFO->sched_response_id);
+    }
+
+    for (int i = 0; i < number_ul_tti_pdu; i++) {
+      switch (UL_tti_req->pdus_list[i].pdu_type) {
+        case NFAPI_NR_UL_CONFIG_PUSCH_PDU_TYPE:
+          //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_UL_TTI_PUSCH_PDU_TYPE for %d.%d\n", frame, slot, UL_tti_req->SFN, UL_tti_req->Slot);
+          nr_fill_ulsch(gNB,UL_tti_req->SFN, UL_tti_req->Slot, &UL_tti_req->pdus_list[i].pusch_pdu);
+          break;
+        case NFAPI_NR_UL_CONFIG_PUCCH_PDU_TYPE:
+          //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_UL_TTI_PUCCH_PDU_TYPE for %d.%d\n", frame, slot, UL_tti_req->SFN, UL_tti_req->Slot);
+          nr_fill_pucch(gNB,UL_tti_req->SFN, UL_tti_req->Slot, &UL_tti_req->pdus_list[i].pucch_pdu);
+          break;
+        case NFAPI_NR_UL_CONFIG_PRACH_PDU_TYPE:
+          //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_UL_TTI_PRACH_PDU_TYPE for %d.%d\n", frame, slot, UL_tti_req->SFN, UL_tti_req->Slot);
+          nfapi_nr_prach_pdu_t *prach_pdu = &UL_tti_req->pdus_list[i].prach_pdu;
+          nr_fill_prach(gNB, UL_tti_req->SFN, UL_tti_req->Slot, prach_pdu);
+          if (gNB->RU_list[0]->if_south == LOCAL_RF || gNB->RU_list[0]->if_south == REMOTE_IF5)
+            nr_fill_prach_ru(gNB->RU_list[0], UL_tti_req->SFN, UL_tti_req->Slot, prach_pdu);
+          break;
+        case NFAPI_NR_UL_CONFIG_SRS_PDU_TYPE:
+          //log_d(NR_PHY,"frame %d, slot %d, Got NFAPI_NR_UL_CONFIG_SRS_PDU_TYPE for %d.%d\n", frame, slot, UL_tti_req->SFN, UL_tti_req->Slot);
+          nr_fill_srs(gNB,UL_tti_req->SFN, UL_tti_req->Slot, &UL_tti_req->pdus_list[i].srs_pdu);
+          break;
+      }
+    }
+  }
+
+  if (NFAPI_MODE == NFAPI_MODE_VNF) { // If VNF, oai_nfapi functions send respective p7 msgs to PNF for which nPDUs > 0
+
+    if (number_ul_tti_pdu > 0)
+      oai_nfapi_ul_tti_req(UL_tti_req);
+
+    if (number_ul_dci_pdu > 0)
+      oai_nfapi_ul_dci_req(UL_dci_req);
+
+    if (number_dl_pdu > 0)
+      oai_nfapi_dl_tti_req(DL_req);
+
+    if (number_tx_data_pdu > 0)
+      oai_nfapi_tx_data_req(TX_req);
+
+  } else if (NFAPI_MODE == NFAPI_MODE_AERIAL) {
+#ifdef ENABLE_AERIAL
+    bool send_slt_resp = false;
+    if (number_dl_pdu > 0) {
+      oai_fapi_dl_tti_req(DL_req);
+      send_slt_resp = true;
+    }
+    if (number_ul_tti_pdu > 0) {
+      oai_fapi_ul_tti_req(UL_tti_req);
+      send_slt_resp = true;
+    }
+    if (number_tx_data_pdu > 0) {
+      oai_fapi_tx_data_req(TX_req);
+      send_slt_resp = true;
+    }
+    if (number_ul_dci_pdu > 0) {
+      oai_fapi_ul_dci_req(UL_dci_req);
+      send_slt_resp = true;
+    }
+    if (send_slt_resp) {
+      oai_fapi_send_end_request(0,frame,slot);
+    }
+#endif
+  }
+
+  /* this thread is done with the sched_info, decrease the reference counter */
+  if (slot_type == NR_DOWNLINK_SLOT || slot_type == NR_MIXED_SLOT) {
+    //log_d(NR_PHY, "Calling dref_sched_response for id %d in %d.%d (sched_response)\n", Sched_INFO->sched_response_id, frame, slot);
+    deref_sched_response(Sched_INFO->sched_response_id);
+  }
+  stop_meas(&gNB->schedule_response_stats);
+}

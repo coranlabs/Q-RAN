@@ -1,0 +1,57 @@
+Active_gNBs:
+  - gNB-Eurecom-CU
+
+Asn1_verbosity: none
+
+gNBs:
+  # Identification parameters:
+  - gNB_ID: 0xe00
+    gNB_name: gNB-Eurecom-CU
+    # Tracking area code, 0x0000 and 0xfffe are reserved values
+    tracking_area_code: 1
+    plmn_list:
+      - mcc: 001
+        mnc: 01
+        mnc_length: 2
+        snssaiList:
+          - sst: 1
+    nr_cellid: 12345678
+    tr_s_preference: "f1"
+    local_s_: "127.0.0.4"
+    remote_s_address: "127.0.0.3"
+    local_s_portc: 501
+    local_s_portd: 2152
+    remote_s_portc: 500
+    remote_s_portd: 2152
+
+    SCTP:
+      SCTP_INSTREAMS: 2
+      SCTP_OUTSTREAMS: 2
+
+    amf_ip_address:
+      - ipv4: "192.168.70.132"
+
+    NETWORK_INTERFACES:
+      GNB_IPV4_ADDRESS_FOR_NG_AMF: "192.168.70.129"
+      GNB_IPV4_ADDRESS_FOR_NGU: "192.168.70.129"
+      GNB_PORT_FOR_S1U: 2152  # Spec 2152
+
+security:
+  ciphering_algorithms:
+    - nea0
+  integrity_algorithms:
+    - nia2
+    - nia0
+  drb_ciphering: "yes"
+  drb_integrity: "no"
+
+log_config:
+  global_log_level: info
+  hw_log_level: info
+  phy_log_level: info
+  mac_log_level: info
+  rlc_log_level: debug
+  pdcp_log_level: info
+  rrc_log_level: info
+  f1ap_log_level: debug
+
