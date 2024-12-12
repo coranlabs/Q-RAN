@@ -1,0 +1,561 @@
+#!/bin/bash
+#/*
+# * Licensed to the OpenAirInterface (OAI) Software Alliance under one or more
+# * contributor license agreements.  See the NOTICE file distributed with
+# * this work for additional information regarding copyright ownership.
+# * The OpenAirInterface Software Alliance licenses this file to You under
+# * the OAI Public License, Version 1.1  (the "License"); you may not use this file
+# * except in compliance with the License.
+# * You may obtain a copy of the License at
+# *
+# *      http://www.openairinterface.org/?page_id=698
+# *
+# * Unless required by applicable law or agreed to in writing, software
+# * distributed under the License is distributed on an "AS IS" BASIS,
+# * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# * See the License for the specific language governing permissions and
+# * limitations under the License.
+# *-------------------------------------------------------------------------------
+# * For more information about the OpenAirInterface (OAI) Software Alliance:
+# *      contact@openairinterface.org
+# */
+
+# file build_oai
+# brief OAI automated build tool that can be used to install, compile, run OAI.
+# author  Navid Nikaein, Lionel GAUTHIER, Laurent Thomas
+
+set -e
+
+# Include helper functions
+THIS_SCRIPT_PATH=$(dirname $(readlink -f "$0"))
+source "$THIS_SCRIPT_PATH"/tools/build_helper
+
+# Set environment variables (OPENAIR_HOME, ...)
+set_openair_env
+
+# Variables for UE data generation
+gen_nvram_path=$OPENAIR_DIR/cmake_targets/ran_build/build
+conf_nvram_path=$OPENAIR_DIR/openair3/NAS/TOOLS/ue_eurecom_test_sfr.conf
+
+HW=""
+VERBOSE_COMPILE=0
+RUN_GROUP=0
+TEST_CASE_GROUP=""
+BUILD_DIR=ran_build
+BUILD_DOXYGEN=0
+DISABLE_HARDWARE_DEPENDENCY="False"
+CMAKE_BUILD_TYPE="RelWithDebInfo"
+CMAKE_CMD="$CMAKE"
+OPTIONAL_LIBRARIES="telnetsrv enbscope uescope nrscope ldpc_cuda ldpc_t2 websrv oai_iqplayer imscope"
+TARGET_LIST=""
+
+function print_help() {
+  echo_info "
+This script compiles OpenAirInterface Software, and can install dependencies
+for a number of distributions (Ubuntu 22-24, Fedora, RHEL9).
+Options:
+--arch-native
+   Passes -march=native to the compiler.
+-c | --clean
+   Erase all files to make a rebuild from start
+-C | --clean-all
+   Erase all files made by previous compilations, installations
+--clean-kernel
+   Erase previously installed features in kernel: iptables, drivers, ...
+--cmake-opt
+   Pass the supplied option verbatim to cmake.
+-d | --build-dir
+   Sets build directory (will be <oai-root>/cmake_targets/<build-dir>/build)
+--build-e2
+   Enable the the E2 Agent
+-I | --install-external-packages
+   Installs required packages such as LibXML, asn1.1 compiler, ...
+   This option will require root password
+--install-optional-packages
+   Install useful but not mandatory packages such as valgrind
+-g | --run-with-gdb <Release | RelWithDebInfo | MinSizeRel | Debug
+  specify the build mode used by cmake. defaults to Debug mode if -g is used alone, with no mode parameter
+  if -g is not specifies, Release mode is used.
+-G | --cmaketrace
+   enable cmake debugging messages
+--eNB
+  Makes the LTE softmodem
+--gNB
+  Makes the NR softmodem
+--RU
+  Makes the OAI RRU
+--UE
+   Makes the UE specific parts (usim, nvram) from the given configuration file
+--nrUE
+  Makes the NR UE softmodem
+--UE-conf-nvram [configuration file]
+   Specify conf_nvram_path (default \"$conf_nvram_path\")
+--UE-gen-nvram [output path]
+   Specify gen_nvram_path (default \"$gen_nvram_path\")
+-w | --hardware
+   USRP, BLADERF, LMSSDR, IRIS, SIMU, AW2SORI, AERIAL, None (Default)
+   Adds this RF board support (in external packages installation and in compilation)
+-t | --transport
+   Selects the transport protocol type, options: None, Ethernet, benetel4g, benetel5g, oran_fhlib_5g
+-P | --phy_simulators
+   Makes the unitary tests Layer 1 simulators
+-s | --check
+   runs a set of auto-tests based on simulators and several compilation tests
+--run-group 
+   runs only specified test cases specified here. This flag is only valid with -s
+-V | --vcd
+   Adds a debgging facility to the binary files: GUI with major internal synchronization events
+--verbose-compile
+   Shows detailed compilation instructions in makefile
+--build-doxygen
+   Builds doxygen based documentation.
+--trace-asn1c-enc-dec
+   Output asn1c logging traces via OAI logging system.
+--enable-LTTNG
+   Enable LTTNG log. While lttng is enabled, T-Tracer will be disabled
+--disable-T-Tracer
+   Disables the T tracer.
+--disable-hardware-dependency
+   Disable HW dependency during installation
+--ue-autotest-trace
+   Enable specific traces for UE autotest framework
+--ue-trace
+   Enable traces for UE debugging
+--ue-timing
+   Enable traces for timing
+--uhd-images-dir
+   Download UHD images in the indicated location
+--build-eclipse
+   Build eclipse project files.
+--build-lib <libraries>
+   Build optional shared library, <libraries> can be one or several of $OPTIONAL_LIBRARIES or \"all\"
+--noavx512
+   Disable AVX512 intrinsics whatever processor capability is
+--noavx2
+   Disable AVX2 intrinsics whatever processor capability is
+--ninja
+  Tell cmake to use the Ninja build system. Without, will generate make files
+--sanitize
+  Shortcut for usage of --sanitize-address --sanitize-undefined
+--sanitize-address | -fsanitize=address
+  Enable the address sanitizer on all targets
+--sanitize-undefined | -fsanitize=undefined
+  Enable the undefined behavior sanitizer on all targets
+--sanitize-memory | -fsanitize=memory
+  Enable the memory sanitizer on all targets. Requires clang, and is
+  incompatible with ASan/UBSan. To build, issue:
+  CC=/usr/bin/clang CXX=/usr/bin/clang++ ./build_oai ... --sanitize-memory
+--sanitize-thread | -fsanitize=thread
+  Enable the thread sanitizer on all targets
+-h | --help
+   Print this help"
+}
+
+
+function main() {
+
+  until [ -z "$1" ]
+  do
+    case "$1" in
+       --arch-native)
+            echo_fatal "Error: specify --arch-native on the command line to cmake directly: ./build_oai --cmake-opt \"-DCMAKE_C_FLAGS=-march=native -DCMAKE_CXX_FLAGS=-march=native\""
+            shift;;
+       -c | --clean)
+            CLEAN=1
+            shift;;
+       -C | --clean-all)
+            CLEAN_ALL=1
+            shift;;
+       --clean-kernel)
+            clean_kernel
+            echo_info "Erased iptables config and removed modules from kernel"
+            shift;;
+       --cmake-opt)
+            CMAKE_CMD="$CMAKE_CMD $2"
+            shift 2;;
+       -d | --build-dir)
+            BUILD_DIR=$2
+            shift 2;;
+       --build-e2 )
+             CMAKE_CMD="$CMAKE_CMD -DE2_AGENT=ON"
+             shift
+             ;;
+       -I | --install-external-packages)
+            INSTALL_EXTERNAL=1
+            echo_info "Will install external packages"
+            shift;;
+       --install-optional-packages)
+            INSTALL_OPTIONAL=1
+            echo_info "Will install optional packages"
+            shift;;
+       -g | --run-with-gdb)
+            case "$2" in
+                "Release")
+                    CMAKE_BUILD_TYPE="Release"
+                    echo_info "Will Compile without gdb symbols and with compiler optimization"
+                    CMAKE_CMD="$CMAKE_CMD -DCMAKE_BUILD_TYPE=Release"
+                    shift
+                    ;;
+                "RelWithDebInfo")
+                    CMAKE_BUILD_TYPE="RelWithDebInfo"
+                    echo_info "Will Compile with gdb symbols"
+                    CMAKE_CMD="$CMAKE_CMD -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=1"
+                    shift
+                    ;;
+                "MinSizeRel")
+                    CMAKE_BUILD_TYPE="MinSizeRel"
+                    echo_info "Will Compile for minimal exec size"
+                    CMAKE_CMD="$CMAKE_CMD -DCMAKE_BUILD_TYPE=MinSizeRel"
+                    shift
+                    ;;
+                "Debug" | *)
+                    CMAKE_BUILD_TYPE="Debug"
+                    echo_info "Will Compile with gdb symbols and disable compiler optimization"
+                    CMAKE_CMD="$CMAKE_CMD -DCMAKE_BUILD_TYPE=Debug"
+                    if [ "$2" == "Debug" ] ; then
+                        shift
+                    fi
+                    ;;
+            esac
+            shift;;
+       -G | --cmaketrace)
+            CMAKE_CMD="$CMAKE_CMD --trace-expand"
+            shift;;
+       --eNB)
+            eNB=1
+            TARGET_LIST="$TARGET_LIST lte-softmodem"
+            echo_info "Will compile eNB"
+            shift;;
+      --gNB)
+            gNB=1
+            TARGET_LIST="$TARGET_LIST aria nr-cuup"
+            echo_info "Will compile gNB"
+            shift;;
+       --RU)
+            RU=1
+            TARGET_LIST="$TARGET_LIST oairu"
+            echo_info "Will compile RRU"
+            shift;;
+       --UE)
+            UE=1
+            TARGET_LIST="$TARGET_LIST lte-uesoftmodem"
+            echo_info "Will compile UE"
+            shift;;
+       --nrUE)
+            nrUE=1
+            TARGET_LIST="$TARGET_LIST nr-uesoftmodem"
+            echo_info "Will compile NR UE"
+            shift;;
+       --mu)
+            CMAKE_CMD="$CMAKE_CMD -DUE_EXPANSION=True -DPRE_SCD_THREAD=True"
+            echo_info "Will compile with UE_EXPANSION"
+            shift;;
+       --UE-conf-nvram)
+            conf_nvram_path=$(readlink -f "$2")
+            shift 2;;
+       --UE-gen-nvram)
+            gen_nvram_path=$(readlink -f "$2")
+            shift 2;;
+       -w | --hardware)
+            case "$2" in
+                "USRP" | "BLADERF" | "LMSSDR" | "IRIS")
+                    HW="OAI_"$2
+                    TARGET_LIST="$TARGET_LIST oai_${2,,}devif" # ,, makes lowercase
+                    CMAKE_CMD="$CMAKE_CMD -DOAI_$2=ON"
+                    ;;
+                "SIMU")
+                    HW="OAI_"$2
+                    TARGET_LIST="$TARGET_LIST rfsimulator"
+                    CMAKE_CMD="$CMAKE_CMD -DOAI_$2=ON"
+                    ;;
+                "AW2SORI")
+                    HW="OAI_"$2
+                    TARGET_LIST="$TARGET_LIST aw2sori_transpro"
+                    CMAKE_CMD="$CMAKE_CMD -DOAI_$2=ON"
+                    ;;
+                "AERIAL"|"Aerial"|"aerial")
+                    HW="OAI_AERIAL"
+                    CMAKE_CMD="$CMAKE_CMD -DOAI_AERIAL=ON"
+                    ;;
+                "None")
+                    ;;
+                *)
+                    echo_fatal "Unknown hardware type $2: exit..."
+                    ;;
+            esac
+            shift 2;;
+       -t | --transport)
+            case "$2" in
+              "Ethernet")
+                TARGET_LIST="$TARGET_LIST oai_eth_transpro"
+                CMAKE_CMD="$CMAKE_CMD -DOAI_${2^^}=ON" # ^^ makes uppercase
+                ;;
+              "benetel4g" | "benetel5g" | "oran_fhlib_4g")
+                TARGET_LIST="$TARGET_LIST $2"
+                CMAKE_CMD="$CMAKE_CMD -DOAI_${2^^}=ON" # ^^ makes uppercase
+                ;;
+              "oran_fhlib_5g")
+                TARGET_LIST="$TARGET_LIST $2"
+                CMAKE_CMD="$CMAKE_CMD -DOAI_FHI72=ON"
+                ;;
+              "None")
+                ;;
+              *)
+                echo_fatal "Unknown transport type $2; exit..."
+                ;;
+            esac
+            shift 2;;
+       -P | --phy_simulators)
+            SIMUS_PHY=1
+            # TODO: fix: dlsim_tm4 pucchsim prachsim pdcchsim pbchsim mbmssim
+            TARGET_LIST="$TARGET_LIST dlsim ulsim ldpctest polartest smallblocktest nr_pbchsim nr_dlschsim nr_ulschsim nr_dlsim nr_ulsim nr_pucchsim nr_prachsim nr_psbchsim"
+            echo_info "Will compile dlsim, ulsim, ..."
+            shift;;
+       -s | --check)
+            OAI_TEST=1
+            echo_info "Will run auto-tests"
+            shift;;
+       --run-group)
+            RUN_GROUP=1
+            TEST_CASE_GROUP=$2
+            echo_info "executing test cases only in group: $TEST_CASE_GROUP"
+            shift 2;;
+       -V | --vcd)
+            echo_info "Setting gtk-wave output"
+            CMAKE_CMD="$CMAKE_CMD -DENABLE_VCD_FIFO=True"
+            shift;;
+       --verbose-compile)
+            VERBOSE_COMPILE=1
+            echo_info "Will compile with verbose instructions"
+            shift;;
+       --build-doxygen)
+           CMAKE_CMD="$CMAKE_CMD -DGENERATE_DOXYGEN=ON"
+	   TARGET_LIST="$TARGET_LIST doc"
+           BUILD_DOXYGEN=1
+           echo_info "Will build doxygen support"
+           shift;;     
+       --enable-LTTNG)
+            CMAKE_CMD="$CMAKE_CMD -DENABLE_LTTNG=ON -DT_TRACER=OFF"
+            echo_info "Enable LTTNG tracer"
+            USE_LTTNG=1
+            shift 1;;
+       --disable-T-Tracer)
+            CMAKE_CMD="$CMAKE_CMD -DT_TRACER=False"
+            echo_info "Disabling the T tracer"
+            shift 1;;
+       --disable-hardware-dependency)
+            echo_info "Disabling hardware dependency for compiling software"
+            DISABLE_HARDWARE_DEPENDENCY="True"
+            shift 1;;
+       --ue-autotest-trace)
+            CMAKE_CMD="$CMAKE_CMD -DUE_AUTOTEST_TRACE=True"
+            echo_info "Enabling autotest specific trace for UE"
+            shift 1;;
+       --ue-trace)
+            CMAKE_CMD="$CMAKE_CMD -DUE_DEBUG_TRACE=False"
+            echo_info "Enabling UE trace for debug"
+            shift 1;;
+       --ue-timing)
+            CMAKE_CMD="$CMAKE_CMD -DUE_TIMING_TRACE=True"
+            echo_info "Enabling UE timing trace"
+            shift 1;;
+       --uhd-images-dir)
+            UHD_IMAGES_DIR=$2
+            echo_info "Downloading UHD images in the indicated location"
+            shift 2;;
+       --build-eclipse)
+            CMAKE_CMD="$CMAKE_CMD"' -DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE -G"Eclipse CDT4 - Unix Makefiles"'
+            echo_info "Enabling build eclipse project support"
+            shift 1;;
+       --build-lib) 
+            if [  "$2" == "all" ] ; then
+              TARGET_LIST="$TARGET_LIST $OPTIONAL_LIBRARIES"
+              for lib in $OPTIONAL_LIBRARIES; do CMAKE_CMD="$CMAKE_CMD -DENABLE_${lib^^}=ON"; done
+              echo_info "Enabling build of all optional shared libraries ($OPTIONAL_LIBRARIES)" 
+            else
+              for reqlib in $2; do
+                lib=$(echo $OPTIONAL_LIBRARIES | tr ' ' '\n' | grep -w $reqlib) # search given parameter in list
+                [[ $? -ne 0 ]] && echo_fatal "Unknown optional library in $reqlib, valid libraries are $OPTIONAL_LIBRARIES"
+                TARGET_LIST="$TARGET_LIST $lib" # will append the found library
+                CMAKE_CMD="$CMAKE_CMD -DENABLE_${lib^^}=ON"
+                echo_info "Enabling build of optional shared library $lib"
+              done
+            fi
+            shift 2;;
+        --noavx512)
+            CMAKE_CMD="$CMAKE_CMD -DAVX512=OFF"
+            echo_info "Disabling AVX512 instructions"
+            shift 1;;
+        --noavx2)
+            CMAKE_CMD="$CMAKE_CMD -DAVX2=OFF"
+            echo_info "Disabling AVX2 instructions"
+            shift 1;;
+        --ninja)
+            CMAKE_CMD="$CMAKE_CMD -GNinja"
+            shift;;
+        --sanitize)
+            CMAKE_CMD="$CMAKE_CMD -DSANITIZE_ADDRESS=True -DSANITIZE_UNDEFINED=True"
+            shift;;
+        --sanitize-address | -fsanitize=address)
+            CMAKE_CMD="$CMAKE_CMD -DSANITIZE_ADDRESS=True"
+            shift;;
+        --sanitize-undefined | -fsanitize=undefined)
+            CMAKE_CMD="$CMAKE_CMD -DSANITIZE_UNDEFINED=True"
+            shift;;
+        --sanitize-memory | -fsanitize=memory)
+            CMAKE_CMD="$CMAKE_CMD -DSANITIZE_MEMORY=ON -DSANITIZE_ADDRESS=OFF -DSANITIZE_UNDEFINED=OFF"
+            shift;;
+        --sanitize-thread | -fsanitize=thread)
+            CMAKE_CMD="$CMAKE_CMD -DSANITIZE_THREAD=True"
+            shift;;
+       --trace-asn1c-enc-dec)
+            CMAKE_CMD="$CMAKE_CMD -DTRACE_ASN1C_ENC_DEC=ON"
+            echo_info "Enabling asn1c internal traces via OAI logging system"
+            shift 1;;
+       --aria_du_mode)
+            CMAKE_CMD="$CMAKE_CMD -DARIA_DU=ON"
+            CMAKE_CMD="$CMAKE_CMD -DARIA_CU=OFF"
+            echo "Compiling ARIA IN L1-L2 mode"
+            shift 1;;
+       --aria_cu_mode)
+            CMAKE_CMD="$CMAKE_CMD -DARIA_CU=ON"
+            CMAKE_CMD="$CMAKE_CMD -DARIA_DU=OFF"
+            echo "Compiling ARIA IN L3 mode"
+            shift 1;;
+        -h | --help)
+            print_help
+            exit 1;;
+        *)
+            print_help
+            echo_fatal "Unknown option $1"
+            break;;
+   esac
+  done
+
+  #######################################################
+  # Setting and printing OAI envs, we should check here #
+  #######################################################
+
+  echo "OPENAIR_DIR    = $OPENAIR_DIR"
+
+  if [ "$CLEAN_ALL" = "1" ] ; then
+    clean_all_files
+    echo "Erased all previously producted files"
+  fi
+
+  dlog=$OPENAIR_DIR/cmake_targets/log
+  mkdir -p $dlog
+
+  if [ "$INSTALL_EXTERNAL" = "1" ] ; then
+    echo_info "Installing packages"
+    check_install_oai_software
+    if [ "$USE_LTTNG" = "1" ] ; then
+      echo_info "installing LTTng"
+      install_lttng $1
+    fi
+    if [ "$HW" == "OAI_USRP" ] ; then
+      echo_info "installing packages for USRP support"
+      check_install_usrp_uhd_driver
+      if [ ! -v BUILD_UHD_FROM_SOURCE ] && [ ! "$DISABLE_HARDWARE_DEPENDENCY" == "True" ]; then
+        install_usrp_uhd_driver $UHD_IMAGES_DIR
+      fi
+    fi
+    if [ "$HW" == "OAI_BLADERF" ] ; then
+      echo_info "installing packages for BLADERF support"
+      check_install_bladerf_driver
+      if [ ! "$DISABLE_HARDWARE_DEPENDENCY" == "True" ]; then
+        flash_firmware_bladerf
+      fi
+    fi
+    if [ "$HW" == "OAI_IRIS" ] ; then
+      echo_info "installing packages for IRIS support"
+      check_install_soapy
+      #if [ ! "$DISABLE_HARDWARE_DEPENDENCY" == "True" ]; then
+      #  flash_firmware_iris
+      #fi
+    fi
+  fi
+
+  if [ "$INSTALL_OPTIONAL" = "1" ] ; then
+    echo_info "Installing optional packages"
+    check_install_additional_tools
+  fi
+
+  DIR=$OPENAIR_DIR/cmake_targets
+
+  [ "$CLEAN" = "1" ] && rm -rf $DIR/$BUILD_DIR/build
+
+  if [[ $TARGET_LIST != "" ]] && [[ -f $OPENAIR_DIR/CMakeLists.txt ]]; then
+    # add some default libraries that should always be built
+    # for eNB, gNB, UEs, simulators
+    if [[ $gNB == 1 || $eNB == 1 || $UE == 1 || $nrUE == 1 || $SIMUS_PHY == 1 || $RU == 1 ]]; then
+      TARGET_LIST="$TARGET_LIST params_libconfig coding rfsimulator dfts params_yaml"
+    fi
+
+    mkdir -p $DIR/$BUILD_DIR/build
+    cd $DIR/$BUILD_DIR/build
+
+    # for historical reasons we build in a subdirectory cmake_targets/XYZ/build,
+    # e.g., cmake_targets/ran_build/build, hence the ../../..
+    CMAKE_CMD="$CMAKE_CMD ../../.."
+    echo_info "Running \"$CMAKE_CMD\""
+    eval $CMAKE_CMD
+    compilations $BUILD_DIR all.txt $TARGET_LIST
+    ###################
+    # Doxygen Support #
+    ###################
+    if [ "$BUILD_DOXYGEN" = "1" ] ; then
+	echo_info "Built Doxygen based documentation. The documentation file is located here: $DIR/$BUILD_DIR/build/doc/html/index.html"
+    fi
+
+    # TODO: once we got the CMakeLists.txt file done for the ORAN files, remove the following lines
+    if [[ $TARGET_LIST =~ "oran_fhlib_5g" ]]; then
+      rm -f liboai_transpro.so
+      ln -s liboran_fhlib_5g.so liboai_transpro.so
+    fi
+
+    if [ "$UE" = 1 ] ; then
+
+      echo_info "Compiling UE specific part"
+
+      [ "$CLEAN" = "1" ] && rm -rf $DIR/nas_sim_tools/build
+      mkdir -p $DIR/nas_sim_tools/build
+      cd $DIR/nas_sim_tools/build
+
+      ${CMAKE_CMD% *} ..
+      compilations nas_sim_tools usim.txt usim
+      compilations nas_sim_tools nvram.txt nvram
+      compilations nas_sim_tools conf2uedata.txt conf2uedata
+
+      # generate USIM data
+      if [ -f conf2uedata ]; then
+        install_nas_tools $conf_nvram_path $DIR/$BUILD_DIR/build "$DIR/$BUILD_DIR/build/conf2uedata.txt"
+      else
+        echo_warning "not generated UE NAS files: binaries not found"
+      fi
+    fi
+  fi
+
+
+  ##############
+  # Auto-tests #
+  ##############
+  if [ "$OAI_TEST" = "1" ] ; then
+    echo_info "The log file for the autotest script for debugging is located here: $OPENAIR_DIR/cmake_targets/autotests/log/autotests.log "
+    echo_info "The results of autotests results is located here: $OPENAIR_DIR/cmake_targets/autotests/log/results_autotests.xml "
+    echo_info "You can hit CTRL-C at any time to terminate the autotests..."
+    rm -fr $OPENAIR_DIR/cmake_targets/autotests/log
+    mkdir -p $OPENAIR_DIR/cmake_targets/autotests/log
+    if [ "$RUN_GROUP" -eq "1" ]; then
+        $OPENAIR_DIR/cmake_targets/autotests/run_exec_autotests.bash -g "$TEST_CASE_GROUP" >& $OPENAIR_DIR/cmake_targets/autotests/log/autotests.log
+    else
+        $OPENAIR_DIR/cmake_targets/autotests/run_exec_autotests.bash >& $OPENAIR_DIR/cmake_targets/autotests/log/autotests.log
+    fi
+    wait
+  else
+    echo_success "BUILD SHOULD BE SUCCESSFUL"
+  fi
+
+}
+
+main "$@"
