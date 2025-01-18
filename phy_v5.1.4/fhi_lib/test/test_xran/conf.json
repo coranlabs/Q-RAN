@@ -1,0 +1,2230 @@
+{
+    "GLOBAL": {
+        "io_cfg": {
+            "dpdk_dev_up":          "",
+            "dpdk_dev_cp":          "",
+            "bbdev_mode":           "none",
+            "system_core":          0,
+            "core":                 5,
+            "pkt_proc_core":        6,
+            "timing_core":          7,
+            "pkt_aux_core":         0,
+            "dpdkBasebandFecMode":  0,
+            "dpdkBasebandDevice":   "",
+            "dpdkMemorySize":       8192,
+            "mtu":                  1500,
+            "o_du_macaddr":         "00:11:22:33:44:66",
+            "o_ru_macaddr":         "00:11:22:33:44:55",
+            "cp_vlan_tag":          1,
+            "up_vlan_tag":          2
+            },
+
+        "eAxCId_cfg": {
+            "bit_cuPortId":         4,
+            "bit_bandSectorId":     4,
+            "bit_ccId":             4,
+            "bit_ruPortId":         4
+            },
+
+        "prach_cfg": {
+            "scs":                  0,
+            "freq_start":           0,
+            "filter_id":            3,
+            "config_id":            189,
+            "freq_offset":          1
+            },
+
+        "ru_cfg": {
+            "category":         "A",
+            "duplex":           "TDD",
+            "slot_config":      "slotcfg_0",
+            "sub6":             true,
+            "mu":               0,
+            "num_cc":           6,
+            "num_eaxc":         8,
+            "ant_elm_trx":      32,
+            "chbw_dl":          20,
+            "chbw_ul":          20,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "fft_size":         1024,
+            "totalBfWeights":   64,
+            "Tadv_cp_dl":       0,
+            "T2a_min_cp_dl":    0,
+            "T2a_max_cp_dl":    0,
+            "T2a_min_cp_ul":    0,
+            "T2a_max_cp_ul":    0,
+            "T2a_min_up":       0,
+            "T2a_max_up":       0,
+            "Ta3_min":          0,
+            "Ta3_max":          0,
+            "T1a_min_cp_dl":    0,
+            "T1a_max_cp_dl":    0,
+            "T1a_min_cp_ul":    0,
+            "T1a_max_cp_ul":    0,
+            "T1a_min_up":       0,
+            "T1a_max_up":       0,
+            "Ta4_min":          0,
+            "Ta4_max":          0
+            },
+        "slotcfg_0": {
+            "desc":     "DDDSUUDDDD_644",
+            "period":   10,
+            "slot0":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot1":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot2":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot3":    [ 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 1, 1 ],
+            "slot4":    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+            "slot5":    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+            "slot6":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot7":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot8":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot9":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+            },
+        "slotcfg_1": {
+            "desc":     "DDDS_1211",
+            "period":   4,
+            "slot0":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot1":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot2":    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            "slot3":    [ 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+            }
+        },
+
+    "u_plane_functional": [
+      {
+        "name": "U_plane",
+        "parameters": {
+            "test_type": 0,
+            "input": "test_vectors/u-plane_in.bin",
+            "input_len": 2400,
+            "num_of_cases": 1
+            },
+
+        "references": {
+            "output": "test_vectors/u-palne_out.bin",
+            "output_len": 2400
+            }
+      }
+    ],
+
+    "C_Plane": [
+      {
+        "name": "DL_StockA",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      273,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0,
+                "exts":         [ ]
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_StockB",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      7,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    7,
+                "numPrbc":      255,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_StockC",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      4,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    8,
+                "numPrbc":      255,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_StockD",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 6,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      1,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    1,
+                "numPrbc":      4,
+                "reMask":       2730,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    3,
+                "rb":           1,
+                "symInc":       0,
+                "startPrbc":    5,
+                "numPrbc":      10,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    4,
+                "rb":           1,
+                "symInc":       0,
+                "startPrbc":    6,
+                "numPrbc":      9,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    5,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    24,
+                "numPrbc":      46,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    6,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    66,
+                "numPrbc":      207,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_StockE",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 5,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      7,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    7,
+                "numPrbc":      255,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    3,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    0,
+                "numPrbc":      7,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    4,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    7,
+                "numPrbc":      255,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_StockF",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 5,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      20,
+                "reMask":       2730,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    25,
+                "numPrbc":      15,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    3,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    40,
+                "numPrbc":      95,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    4,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    162,
+                "numPrbc":      111,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    5,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    0,
+                "numPrbc":      5,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    6,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    25,
+                "numPrbc":      15,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    7,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    40,
+                "numPrbc":      95,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    8,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    162,
+                "numPrbc":      111,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    9,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    0,
+                "numPrbc":      5,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    10,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    10,
+                "numPrbc":      30,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    11,
+                "rb":           0,
+                "symInc":       1,
+                "startPrbc":    40,
+                "numPrbc":      95,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                },
+                {
+                "sectionId":    12,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    162,
+                "numPrbc":      111,
+                "reMask":       4095,
+                "numSymbol":    1,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      66,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "UL_SectionType1_SingleSection",
+        "parameters": {
+            "direction":    "UL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      66,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_MultiSection",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      22,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    22,
+                "numPrbc":      22,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                },
+                {
+                "sectionId":    3,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    44,
+                "numPrbc":      22,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "UL_SectionType1_MultiSection",
+        "parameters": {
+            "direction":    "UL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      25,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                },
+                {
+                "sectionId":    2,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    25,
+                "numPrbc":      25,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                },
+                {
+                "sectionId":    3,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    50,
+                "numPrbc":      25,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                },
+                {
+                "sectionId":    4,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    75,
+                "numPrbc":      25,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext3",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      273,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext3",
+                "type":         3,
+                "codebookIdx":  165,
+                "layerId":      2,
+                "numLayers":    2,
+                "txScheme":     1,
+                "crsReMask":    10,
+                "crsShift":     0,
+                "crsSymNum":    5,
+                "numAntPort":   4,
+                "beamIdAP1":    100,
+                "beamIdAP2":    200,
+                "beamIdAP3":    300
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext6",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      273,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext6",
+                "type":         6,
+                "rbgSize":      6,
+                "rbgMask":      173693530,
+                "symbolMask":   16383
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext10",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      273,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext10",
+                "type":         10,
+                "numPortc":     15,
+                "beamGrpType":  2,
+                "beamID":       [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext1_NoComp",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      36,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext1",
+                "type":         1,
+                "bfwCompMeth":  0,
+                "bfwIqWidth":   16,
+                "antelm_trx":   64
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext1_BFP9",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  1,
+            "iq_width":     9,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      36,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext1",
+                "type":         1,
+                "bfwCompMeth":  1,
+                "bfwIqWidth":   9,
+                "antelm_trx":   64
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext11_NoComp",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      270,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext11",
+                "type":         11,
+                "RAD":          0,
+                "disableBFWs":  0,
+                "numBundPrb":   90,
+                "numSetBFWs":   3,
+                "bfwCompMeth":  0,
+                "bfwIqWidth":   16,
+                "antelm_trx":   64,
+                "beamID":       [ 31312, 31313, 31314 ]
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_Ext11_BFP9",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  1,
+            "iq_width":     9,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      18,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext11",
+                "type":         11,
+                "RAD":          0,
+                "disableBFWs":  0,
+                "numBundPrb":   2,
+                "numSetBFWs":   9,
+                "bfwCompMeth":  1,
+                "bfwIqWidth":   9,
+                "antelm_trx":   64,
+                "beamID":       [ 31315, 31316, 31317, 31318, 31319, 31320, 31321, 31322,
+                                  31323, 31324, 31325, 31326, 31327, 31328, 31329, 31330,
+                                  31331, 31332, 31333, 31334, 31335, 31336, 31337, 31338,
+                                  31339, 31340, 31341, 31342, 31343, 31344, 31345, 31346,
+                                  31347, 31348, 31349, 31350, 31351, 31352, 31353, 31354,
+                                  31355, 31356, 31357, 31358, 31359, 31360, 31361, 31362,
+                                  31363, 31364, 31365, 31366, 31367, 31368, 31369, 31370,
+                                  31371, 31372, 31373, 31374, 31375, 31376, 31377, 31378 ]
+                }
+                ]
+          }
+      },
+      {
+        "name": "DL_SectionType1_SingleSection_ExtAll",
+        "parameters": {
+            "direction":    "DL",
+            "section_type": 1,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 0,
+            "comp_method":  0,
+            "iq_width":     16,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      273,
+                "reMask":       4095,
+                "numSymbol":    14,
+                "beamId":       0,
+                "exts":         [ 0, 1, 2, 3, 4, 5 ]
+                }
+                ],
+            "extensions":   [
+                {
+                "name":         "ext2",
+                "type":         2,
+                "bfAzPtWidth":  7,
+                "bfAzPt":       10,
+                "bfZePtWidth":  7,
+                "bfZePt":       20,
+                "bfAz3ddWidth": 7,
+                "bfAz3dd":      30,
+                "bfZe3ddWidth": 7,
+                "bfZe3dd":      40,
+                "bfAzSI":       2,
+                "bfZeSI":       5
+                },
+                {
+                "name":         "ext3",
+                "type":         3,
+                "codebookIdx":  165,
+                "layerId":      2,
+                "numLayers":    2,
+                "txScheme":     1,
+                "crsReMask":    10,
+                "crsShift":     0,
+                "crsSymNum":    5,
+                "numAntPort":   4,
+                "beamIdAP1":    100,
+                "beamIdAP2":    200,
+                "beamIdAP3":    300
+                },
+                {
+                "name":         "ext4",
+                "type":         4,
+                "csf":          1,
+                "modCompScaler":1365
+                },
+                {
+                "name":         "ext5",
+                "type":         5,
+                "num_sets":     2,
+                "csf":          [ 1, 0 ],
+                "mcScaleReMask":[ 15, 7 ],
+                "mcScaleOffset":[ 100, 200 ]
+                },
+                {
+                "name":         "ext6",
+                "type":         6,
+                "rbgSize":      6,
+                "rbgMask":      173693530,
+                "symbolMask":   16383
+                },
+                {
+                "name":         "ext10",
+                "type":         10,
+                "numPortc":     15,
+                "beamGrpType":  2,
+                "beamID":       [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+                }
+                ]
+          }
+      },
+      {
+        "name":"UL_SectionType3_SingleSection",
+        "parameters": {
+            "direction":    "UL",
+            "section_type": 3,
+            "cc_id":        0,
+            "ant_id":       0,
+            "seq_id":       0,
+            "frame_id":     0,
+            "subframe_id":  0,
+            "slot_id":      0,
+            "symbol_start": 7,
+            "comp_method":  0,
+            "iq_width":     16,
+            "filter_index": 3,
+            "time_offset":  2026,
+            "fft_size":     10,
+            "scs":          3,
+            "cp_length":    0,
+            "sections": [
+                {
+                "sectionId":    1,
+                "rb":           0,
+                "symInc":       0,
+                "startPrbc":    0,
+                "numPrbc":      12,
+                "reMask":       4095,
+                "numSymbol":    6,
+                "beamId":       0,
+                "freqOffset":   -792
+                }
+                ]
+          }
+      }
+    ],
+
+    "TestChain": [
+      {
+        "name": "FDD_CATA_MU0_20_1CC_4ANT",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               0,
+            "duplex":           "FDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          20,
+            "fftsize_dl":       1024,
+            "chbw_ul":          20,
+            "fftsize_ul":       1024,
+            "num_cc":           1,
+            "num_eaxc":         4,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+          }
+      },
+      {
+        "name": "FDD_CATA_MU0_20_1CC_8ANT",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               0,
+            "duplex":           "FDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          20,
+            "fftsize_dl":       1024,
+            "chbw_ul":          20,
+            "fftsize_ul":       1024,
+            "num_cc":           1,
+            "num_eaxc":         8,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+
+          }
+      },
+      {
+        "name": "FDD_CATA_MU0_20_6CC_4ANT",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               0,
+            "duplex":           "FDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          20,
+            "fftsize_dl":       1024,
+            "chbw_ul":          20,
+            "fftsize_ul":       1024,
+            "num_cc":           6,
+            "num_eaxc":         4,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+          }
+      },
+      {
+        "name": "FDD_CATA_MU0_20_6CC_8ANT",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               0,
+            "duplex":           "FDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          20,
+            "fftsize_dl":       1024,
+            "chbw_ul":          20,
+            "fftsize_ul":       1024,
+            "num_cc":           6,
+            "num_eaxc":         8,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+
+          }
+      },
+      {
+        "name": "TDD_CATA_MU1_100_1CC_4",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               1,
+            "duplex":           "TDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          100,
+            "fftsize_dl":       4096,
+            "chbw_ul":          100,
+            "fftsize_ul":       4096,
+            "num_cc":           1,
+            "num_eaxc":         4,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+
+          }
+      },
+      {
+        "name": "TDD_CATA_MU1_100_1CC_8",
+        "parameters": {
+            "category":         "A",
+            "sub6":             true,
+            "mu":               1,
+            "duplex":           "TDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          100,
+            "fftsize_dl":       4096,
+            "chbw_ul":          100,
+            "fftsize_ul":       4096,
+            "num_cc":           1,
+            "num_eaxc":         8,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+          }
+      },
+      {
+        "name": "TDD_CATA_MU3_100_1CC_4",
+        "parameters": {
+            "category":         "A",
+            "sub6":             false,
+            "mu":               3,
+            "duplex":           "TDD",
+            "slot_config":      "slotcfg_1",
+            "chbw_dl":          100,
+            "fftsize_dl":       1024,
+            "chbw_ul":          100,
+            "fftsize_ul":       1024,
+            "num_cc":           1,
+            "num_eaxc":         4,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+          }
+      },
+      {
+        "name": "TDD_CATB_MU1_100_1CC_8",
+        "parameters": {
+            "category":         "B",
+            "sub6":             true,
+            "mu":               1,
+            "duplex":           "TDD",
+            "slot_config":      "slotcfg_0",
+            "chbw_dl":          100,
+            "fftsize_dl":       4096,
+            "chbw_ul":          100,
+            "fftsize_ul":       4096,
+            "num_cc":           1,
+            "num_eaxc":         8,
+            "antelm_trx":       32,
+            "iq_width":         16,
+            "comp_meth":        0,
+            "totalBfWeights":   64,
+            "num_slots":        10,
+            "bfw_prefix_dl":    "test_vectors/mu1_100_32/dl_bfw_ue_",
+            "bfw_prefix_ul":    "test_vectors/mu1_100_32/ul_bfw_ue_"
+          }
+      }
+    ],
+
+  "init_sys_functional": [
+    {
+      "name": "xran_lib_api",
+      "parameters": {
+        "id": 0,
+        "dpdk_dev": [ "0000:d8:02.0", "0000:d8:02.1" ],
+        "bbdev_dev": "none",
+        "bbdev_mode": 0,
+        "core": 5,
+        "system_core": 0,
+        "pkt_proc_core": 6,
+        "pkt_aux_core": 0,
+        "timing_core": 7,
+        "port": [ 0, 1 ],
+        "dpdkBasebandFecMode": 0,
+        "dpdkBasebandDevice": "none",
+        "filePrefix": "wls",
+        "xranCat": 0,
+        "mtu": 1500,
+        "p_o_du_addr": "00:11:22:33:44:66",
+        "p_o_ru_addr": "00:11:22:33:44:55",
+        "Tadv_cp_dl": 0,
+        "T2a_min_cp_dl": 0,
+        "T2a_max_cp_dl": 0,
+        "T2a_min_cp_ul": 0,
+        "T2a_max_cp_ul": 0,
+        "T2a_min_up": 0,
+        "T2a_max_up": 0,
+        "Ta3_min": 0,
+        "Ta3_max": 0,
+        "T1a_min_cp_dl": 0,
+        "T1a_max_cp_dl": 0,
+        "T1a_min_cp_ul": 0,
+        "T1a_max_cp_ul": 0,
+        "T1a_min_up": 0,
+        "T1a_max_up": 0,
+        "Ta4_min": 0,
+        "Ta4_max": 0,
+        "enableCP": 1,
+        "prachEnable": 1,
+        "cp_vlan_tag": 2,
+        "up_vlan_tag": 1,
+        "debugStop": 0,
+        "debugStopCount": 0,
+        "DynamicSectionEna": 0
+      }
+    }
+  ],
+
+  "prach_functional": [
+    {
+      "name": "Prach_test",
+      "parameters": {
+        "Numerology": 1,
+        "FrameDuplexType": 0,
+        "loglevel": 1,
+        "PrachConfIdx": 189,
+        "PrachFreqStart": 0,
+        "PrachFreqOffset": 0,
+        "PrachSubcSpacing": 1,
+        "frameId": 0,
+        "subframeId": 1,
+        "slotId": 0,
+        "beamId": 0,
+        "ccId": 0,
+        "antId": 0,
+        "iqWidth": 16,
+        "compMeth": 0,
+        "fftSize": 10
+      },
+
+      "references": {
+        "filterIdx": 3,
+        "startSymId": 0,
+        "startPrbc": 0,
+        "numPrbc": 12,
+        "timeOffset": 216,
+        "freqOffset": 0,
+        "x_value": 1,
+        "nrofPrachInSlot": 1,
+        "y_value": [ 0, 0 ],
+        "numSymbol": 2,
+        "occassionsInPrachSlot": 7,
+        "isPRACHslot": [ 1, 6 ],
+        "SlotNrNum": 2,
+        "prach_start_symbol": 0,
+        "prach_last_symbol": 13,
+        "m_params_timeOffset": 124,
+          "id": 0
+      }
+    }
+  ],
+  "prach_performance": [
+    {
+      "name": "Prach_test",
+      "parameters": {
+        "Numerology": 1,
+        "FrameDuplexType": 0,
+        "loglevel": 1,
+        "PrachConfIdx": 189,
+        "PrachFreqStart": 0,
+        "PrachFreqOffset": 0,
+        "PrachSubcSpacing": 1,
+        "frameId": 0,
+        "subframeId": 1,
+        "slotId": 0,
+        "beamId": 0,
+        "ccId": 0,
+        "antId": 0
+      },
+
+      "references": {
+        "filterIdx": 3,
+        "startSymId": 0,
+        "startPrbc": 0,
+        "numPrbc": 12,
+        "timeOffset": 216,
+        "freqOffset": 0,
+        "x_value": 1,
+        "nrofPrachInSlot": 1,
+        "y_value": [ 0, 0 ],
+
+        "numSymbol": 2,
+        "occassionsInPrachSlot": 7,
+        "isPRACHslot": [ 1, 6 ],
+        "SlotNrNum": 2,
+        "prach_start_symbol": 0,
+        "prach_last_symbol": 13
+
+      }
+    }
+  ],
+
+  "u_plane_perormace": [
+    {
+      "name": "U-plane",
+      "parameters": {
+        "test_type": 0,
+        "input": "test_vectors/u-plane_in.bin",
+        "input_len": 2400,
+        "num_of_cases": 1
+      },
+
+      "references": {
+        "output": "test_vectors/u-palne_out.bin",
+        "output_len": 2400
+      }
+    }
+  ],
+
+  "bfp_functional": [
+    {
+      "name": "COMPRESS_DECOMPRESS",
+      "parameters": {
+      }
+    }
+  ],
+
+  "bfp_performace": [
+    {
+      "name": "COMPRESS_DECOMPRESS",
+      "parameters": {
+      }
+    }
+  ],
+
+  "bfp_performace_cp": [
+    {
+      "name": "AntElm_8_IQ_8",
+      "parameters": {
+        "AntElm": 8,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "AntElm_16_IQ_8",
+      "parameters": {
+        "AntElm": 16,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "AntElm_32_IQ_8",
+      "parameters": {
+        "AntElm": 32,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "AntElm_64_IQ_8",
+      "parameters": {
+        "AntElm": 64,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "AntElm_8_IQ_9",
+      "parameters": {
+        "AntElm": 8,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "AntElm_16_IQ_9",
+      "parameters": {
+        "AntElm": 16,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "AntElm_32_IQ_9",
+      "parameters": {
+        "AntElm": 32,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "AntElm_64_IQ_9",
+      "parameters": {
+        "AntElm": 64,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "AntElm_8_IQ_10",
+      "parameters": {
+        "AntElm": 8,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "AntElm_16_IQ_10",
+      "parameters": {
+        "AntElm": 16,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "AntElm_32_IQ_10",
+      "parameters": {
+        "AntElm": 32,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "AntElm_64_IQ_10",
+      "parameters": {
+        "AntElm": 64,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "AntElm_8_IQ_12",
+      "parameters": {
+        "AntElm": 8,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "AntElm_16_IQ_12",
+      "parameters": {
+        "AntElm": 16,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "AntElm_32_IQ_12",
+      "parameters": {
+        "AntElm": 32,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "AntElm_64_IQ_12",
+      "parameters": {
+        "AntElm": 64,
+        "iqWidth": 12
+      }
+    }
+  ],
+
+  "bfp_performace_ex": [
+    {
+      "name": "RB_16_IQ_8",
+      "parameters": {
+        "nRBsize": 16,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_18_IQ_8",
+      "parameters": {
+        "nRBsize": 18,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_32_IQ_8",
+      "parameters": {
+        "nRBsize": 32,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_36_IQ_8",
+      "parameters": {
+        "nRBsize": 36,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_48_IQ_8",
+      "parameters": {
+        "nRBsize": 48,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_70_IQ_8",
+      "parameters": {
+        "nRBsize": 70,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_113_IQ_8",
+      "parameters": {
+        "nRBsize": 113,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_273_IQ_8",
+      "parameters": {
+        "nRBsize": 273,
+        "iqWidth": 8
+      }
+    },
+    {
+      "name": "RB_6_IQ_9",
+      "parameters": {
+        "nRBsize": 6,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_12_IQ_9",
+      "parameters": {
+        "nRBsize": 12,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_16_IQ_9",
+      "parameters": {
+        "nRBsize": 16,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_18_IQ_9",
+      "parameters": {
+        "nRBsize": 18,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_24_IQ_9",
+      "parameters": {
+        "nRBsize": 24,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_30_IQ_9",
+      "parameters": {
+        "nRBsize": 30,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_32_IQ_9",
+      "parameters": {
+        "nRBsize": 32,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_36_IQ_9",
+      "parameters": {
+        "nRBsize": 36,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_42_IQ_9",
+      "parameters": {
+        "nRBsize": 42,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_48_IQ_9",
+      "parameters": {
+        "nRBsize": 48,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_54_IQ_9",
+      "parameters": {
+        "nRBsize": 54,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_60_IQ_9",
+      "parameters": {
+        "nRBsize": 60,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_66_IQ_9",
+      "parameters": {
+        "nRBsize": 66,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_70_IQ_9",
+      "parameters": {
+        "nRBsize": 70,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_72_IQ_9",
+      "parameters": {
+        "nRBsize": 72,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_78_IQ_9",
+      "parameters": {
+        "nRBsize": 78,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_84_IQ_9",
+      "parameters": {
+        "nRBsize": 84,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_90_IQ_9",
+      "parameters": {
+        "nRBsize": 90,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_96_IQ_9",
+      "parameters": {
+        "nRBsize": 96,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_102_IQ_9",
+      "parameters": {
+        "nRBsize": 102,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_108_IQ_9",
+      "parameters": {
+        "nRBsize": 108,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_113_IQ_9",
+      "parameters": {
+        "nRBsize": 113,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_114_IQ_9",
+      "parameters": {
+        "nRBsize": 114,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_120_IQ_9",
+      "parameters": {
+        "nRBsize": 120,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_126_IQ_9",
+      "parameters": {
+        "nRBsize": 126,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_132_IQ_9",
+      "parameters": {
+        "nRBsize": 132,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_138_IQ_9",
+      "parameters": {
+        "nRBsize": 138,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_144_IQ_9",
+      "parameters": {
+        "nRBsize": 144,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_150_IQ_9",
+      "parameters": {
+        "nRBsize": 150,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_156_IQ_9",
+      "parameters": {
+        "nRBsize": 156,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_162_IQ_9",
+      "parameters": {
+        "nRBsize": 162,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_168_IQ_9",
+      "parameters": {
+        "nRBsize": 168,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_174_IQ_9",
+      "parameters": {
+        "nRBsize": 174,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_180_IQ_9",
+      "parameters": {
+        "nRBsize": 180,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_186_IQ_9",
+      "parameters": {
+        "nRBsize": 186,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_192_IQ_9",
+      "parameters": {
+        "nRBsize": 192,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_198_IQ_9",
+      "parameters": {
+        "nRBsize": 198,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_204_IQ_9",
+      "parameters": {
+        "nRBsize": 204,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_210_IQ_9",
+      "parameters": {
+        "nRBsize": 210,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_216_IQ_9",
+      "parameters": {
+        "nRBsize": 216,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_222_IQ_9",
+      "parameters": {
+        "nRBsize": 222,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_228_IQ_9",
+      "parameters": {
+        "nRBsize": 228,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_234_IQ_9",
+      "parameters": {
+        "nRBsize": 234,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_240_IQ_9",
+      "parameters": {
+        "nRBsize": 240,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_246_IQ_9",
+      "parameters": {
+        "nRBsize": 246,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_252_IQ_9",
+      "parameters": {
+        "nRBsize": 252,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_258_IQ_9",
+      "parameters": {
+        "nRBsize": 258,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_264_IQ_9",
+      "parameters": {
+        "nRBsize": 264,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_270_IQ_9",
+      "parameters": {
+        "nRBsize": 270,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_273_IQ_9",
+      "parameters": {
+        "nRBsize": 273,
+        "iqWidth": 9
+      }
+    },
+    {
+      "name": "RB_16_IQ_10",
+      "parameters": {
+        "nRBsize": 16,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_18_IQ_10",
+      "parameters": {
+        "nRBsize": 18,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_32_IQ_10",
+      "parameters": {
+        "nRBsize": 32,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_36_IQ_10",
+      "parameters": {
+        "nRBsize": 36,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_48_IQ_10",
+      "parameters": {
+        "nRBsize": 48,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_70_IQ_10",
+      "parameters": {
+        "nRBsize": 70,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_113_IQ_10",
+      "parameters": {
+        "nRBsize": 113,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_273_IQ_10",
+      "parameters": {
+        "nRBsize": 273,
+        "iqWidth": 10
+      }
+    },
+    {
+      "name": "RB_16_IQ_12",
+      "parameters": {
+        "nRBsize": 16,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_18_IQ_12",
+      "parameters": {
+        "nRBsize": 18,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_32_IQ_12",
+      "parameters": {
+        "nRBsize": 32,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_36_IQ_12",
+      "parameters": {
+        "nRBsize": 36,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_48_IQ_12",
+      "parameters": {
+        "nRBsize": 48,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_70_IQ_12",
+      "parameters": {
+        "nRBsize": 70,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_113_IQ_12",
+      "parameters": {
+        "nRBsize": 113,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_273_IQ_12",
+      "parameters": {
+        "nRBsize": 273,
+        "iqWidth": 12
+      }
+    },
+    {
+      "name": "RB_16_IQ_14",
+      "parameters": {
+        "nRBsize": 16,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_18_IQ_14",
+      "parameters": {
+        "nRBsize": 18,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_32_IQ_14",
+      "parameters": {
+        "nRBsize": 32,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_36_IQ_14",
+      "parameters": {
+        "nRBsize": 36,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_48_IQ_14",
+      "parameters": {
+        "nRBsize": 48,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_70_IQ_14",
+      "parameters": {
+        "nRBsize": 70,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_113_IQ_14",
+      "parameters": {
+        "nRBsize": 113,
+        "iqWidth": 14
+      }
+    },
+    {
+      "name": "RB_273_IQ_14",
+      "parameters": {
+        "nRBsize": 273,
+        "iqWidth": 14
+      }
+    }
+  ],
+
+  "mod_compression_performace": [
+    {
+      "name": "QPSK_1728RE",
+      "parameters": {
+        "unit": 8192,
+        "modulation": 2,
+        "num_symbols": 1728
+      }
+    },
+    {
+      "name": "QPSK_3276RE",
+      "parameters": {
+        "unit": 8192,
+        "modulation": 2,
+        "num_symbols": 3276
+      }
+    },
+    {
+      "name": "16QAM_1722RE",
+      "parameters": {
+        "unit": 10360,
+        "modulation": 4,
+        "num_symbols": 1722
+      }
+    },
+    {
+      "name": "16QAM_3276RE",
+      "parameters": {
+        "unit": 10360,
+        "modulation": 4,
+        "num_symbols": 3276
+      }
+    },
+    {
+      "name": "64QAM_1728RE",
+      "parameters": {
+        "unit": 5064,
+        "modulation": 6,
+        "num_symbols": 1728
+      }
+    },
+    {
+      "name": "64QAM_3276RE",
+      "parameters": {
+        "unit": 5064,
+        "modulation": 6,
+        "num_symbols": 3276
+      }
+    },
+    {
+      "name": "256QAM_1272RE",
+      "parameters": {
+        "unit": 7168,
+        "modulation": 8,
+        "num_symbols": 1272
+      }
+    },
+    {
+      "name": "256QAM_3276RE",
+      "parameters": {
+        "unit": 7168,
+        "modulation": 8,
+        "num_symbols": 3276
+      }
+    },
+    {
+      "name": "QPSK_6793X2RE",
+      "parameters": {
+        "unit": 8192,
+        "modulation": 2,
+        "num_symbols": 13586
+      }
+    },
+    {
+      "name": "16QAM_5284X4RE",
+      "parameters": {
+        "unit": 10360,
+        "modulation": 4,
+        "num_symbols": 21136
+      }
+    },
+    {
+      "name": "64QAM_3774X8RE",
+      "parameters": {
+        "unit": 5064,
+        "modulation": 6,
+        "num_symbols": 30192
+      }
+    },
+    {
+      "name": "64QAM_2264X16RE",
+      "parameters": {
+        "unit": 5064,
+        "modulation": 6,
+        "num_symbols": 36224
+      }
+    },
+    {
+      "name": "256QAM_755X8RE",
+      "parameters": {
+        "unit": 7168,
+        "modulation": 8,
+        "num_symbols": 6040
+      }
+    },
+    {
+      "name": "256QAM_62899X16RE",
+      "parameters": {
+        "unit": 7168,
+        "modulation": 8,
+        "num_symbols": 1006384
+      }
+    }
+  ]
+}
