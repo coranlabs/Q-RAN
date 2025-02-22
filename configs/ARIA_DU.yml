@@ -1,0 +1,214 @@
+ReleaseVersion: 1.0
+
+gNodeB-DU:
+  - gNBName: "CoranLabs-DU"
+    gNBId: 0xe00
+    gNBDUId: 0xe00
+    trackingAreaCode: 1
+    nRCellIdentity: 12345678
+
+plmnConfig:
+      - mcc: 001
+        mnc: 01
+        mncLength: 2
+        S-NSSAIGroup:
+          - sst: 1 #sd to be added
+          - sd: 0xffffff
+
+f1apInterface:
+  - numComponentCarriers: 1
+    cuIpAddress: "127.0.0.4"
+    cuPort: 501
+    duIpAddress: "127.0.0.3"
+    duPort: 500
+
+
+duConfig:
+  - duCores: "3,5,7,9,11,12,13,15"
+    puschAntennaPort: 4
+    pdschAntennaPortXP: 2
+
+    downlinkConfigCommon:
+      absoluteFrequencySSB: 630048
+      dlfrequencyBand: 78
+      absoluteFrequencyPointA: 626772
+      scs-SpecificCarrierList:
+      dlsubcarrierSpacing: 30
+      dlcarrierBandwidth: 273
+      dldownlinkOffsetToCarrier: 0
+
+      initialDownlinkBWPParams:
+        subcarrierSpacing: 30
+        locationAndBandwidth: 1099
+        searchSpaceZero: 0
+        controlResourceSetZero: 11
+
+    uplinkConfigCommon:
+      ulfrequencyBand: 78
+      scsSpecificCarrierList:
+      ulsubcarrierSpacing: 30
+      ulcarrierBandwidth: 273
+      uloffsetToCarrier: 0
+      maximumTransmissionPower: 23
+
+      initialUplinkBWPParams:
+        subcarrierSpacing: 30
+        locationAndBandwidth: 1099
+
+      RACHConfigCommon:
+        prachConfigIndex: 159
+        prachMsg1FDM: 1
+        prachMsg1FrequencyStart: 22
+        prachRootSequenceIndexPR: 2
+        prachRootSequenceIndexValue: 1 #to look
+        msg1SubcarrierSpacing: 30
+        zeroCorrelationZoneConfig: 15
+        preambleReceivedTargetPower: -104
+        preambleTransmissionMax: 7
+        ssbPerRACHOccasion: half
+        cbPreamblesPerSSB: 15
+        raContentionResolutionTimer: sf64
+        msg3DeltaPreamble: 2
+        p0NominalWithGrant: -96
+        rsrpThresholdSSB: 19
+        restrictedSetConfig: 0
+        powerRampingStep: 2
+        raResponseWindow: 20
+
+      pucchConfigCommon:
+        pucchGroupHopping: 0
+        hoppingID: 0
+        p0Nominal: -96
+        ssbPositionsInBurstBitmapType: 2
+        ssbPositionsInBurst: 1
+        ssbPeriodicityServingCell: 2
+        dmrsTypeAPosition: 0
+        subcarrierSpacing: 30
+
+    servingCellConfigCommon:
+      physicalCellIdentity: 0
+
+    pdcchSIB1Configs:
+      - controlResourceSetZero: 11
+        searchSpaceZero: 0
+
+    tddULDLConfigCommon:
+      - ssPBCHBlockPower: 0
+        nrofDownlinkSlots: 3
+        nrofDownlinkSymbols: 6
+        nrofUplinkSlots: 1
+        nrofUplinkSymbols: 4
+        referenceSubcarrierSpacing: 30
+        dlUlTransmissionPeriodicity: 5
+
+    csirsEnabled: 1
+    srsEnabled: 0
+    sib1TimeDomainAllocation: 15
+
+
+L1ConfigList:
+  - numComponentCarriers: 1
+    rxThreadCore: 8
+    txThreadCore: 10
+    txAmplifierBackoff: 20
+    prachDtxThreshold: 130
+    pucch0DtxThreshold: 80
+    puschDtxThreshold: 10
+    phaseCompensationEnabled: 1
+
+RUConfigList:
+  - slotAhead: 5
+    numTransmitAntennas: 4
+    numReceiveAntennas: 4
+    ruThreadCore: 6
+    transmitAttenuation: 0
+    receiveAttenuation: 0
+    frequencyBands: 78
+    maxPdschReferenceSignalPower: -27
+    maxRxGain: 75
+    # ruThreadCore: 6
+    precodingEnabled: 0
+    beamformingWeights: ["0x00007fff,0x0000,0x00007fff,0x0000"]
+
+FHI7p2Config:
+  mtuForRu: 1500 # check if xran uses this properly
+  duAddressList:
+    - "00:11:22:33:44:77"
+    - "00:11:22:33:44:78"
+  ruAddressList:
+    - "e8:c7:4f:1e:c7:3b"
+    - "e8:c7:4f:1e:c7:3b"
+  dpdkDeviceList:
+    - "0000:18:01.0"
+    - "0000:18:01.1"
+  dpdkCoreIsolation: 0
+  fhiCoreIsolation: 4
+  fhiWorkerCoreIsolation:
+    - 2
+  fhTimingConfig:
+    - Tadv_CP_DL: 125
+      T2a_CP_DL_Min: 285
+      T2a_CP_DL_Max: 429
+
+      T2a_CP_UL_Min: 285
+      T2a_CP_UL_Max: 429
+
+      T2a_UP_Min: 125
+      T2a_UP_Max: 428
+
+      Ta3_Min: 130
+      Ta3_Max: 170
+
+      T1a_CP_DL_Min: 285
+      T1a_CP_DL_Max: 429
+
+      T1a_CP_UL_Min: 285
+      T1a_CP_UL_Max: 429
+
+      T1a_UP_Min: 96
+      T1a_UP_Max: 196
+
+      Ta4_Min: 110
+      Ta4_Max: 180
+
+      prachTimingConfig:
+        eAxCOffset: 4
+        kBar: 0
+
+      ruTimingConfig:
+        iqBitWidth: 9
+        fftSize: 12
+        prachIqBitWidth: 9
+
+L1StatsUpdateInterval: 5  # Update interval in seconds
+generateLogFile: true  # Whether to generate log files
+
+logConfig:
+  verticalLevel: LOG_DEBUG  # Can be LOG_DEBUG, LOG_INFO, LOG_WARN, or LOG_NONE
+  horizontalLevel:
+    SCTP: true
+    F1AP: true
+    GTPU: true
+    RLC: true
+    MAC: true
+    PHY: true
+    ARIA: true
+    GNB_APP: true
+    DTLS : true
+    printTimeStamp: true  # Whether to print timestamps in logs
+
+
+logsFileConfig:
+  verticalLevel: LOG_DEBUG  # Can be LOG_DEBUG, LOG_INFO, LOG_WARN, or LOG_NONE
+  horizontalLevel:
+    SCTP: true
+    F1AP: true
+    GTPU: true
+    RLC: true
+    MAC: true
+    PHY: true
+    ARIA: true
+    GNB_APP: true
+    DTLS : true
+    printTimeStamp: true
+

@@ -1,0 +1,68 @@
+ReleaseVersion: 1.0
+
+
+gNodeB-CU:
+  - gNBName: "CoranLabs-CU"
+    gNBId: 0xe00
+    trackingAreaCode: 1
+    nRCellIdentity: 12345678
+
+ngapConfig:
+  - n2IpAddress: "192.168.1.117"
+    n3IpAddress: "192.168.1.117"
+    amfN2IpAddress: "192.168.1.112"
+    sctpRxStream: 2
+    sctpTxStream: 2
+
+
+f1apConfig:
+    localIpAddress: "127.0.0.4"
+    localPort: 501
+    duIpAddress: "127.0.0.3"
+    duPort: 500
+
+plmnConfig:
+      - mcc: 001
+        mnc: 01
+        mncLength: 2
+        S-NSSAIGroup:
+          - sst: 1
+            sd: 0xffffff
+
+
+cuConfig:
+  sdapMode: "disable"
+  isolatedCores: "2,4,6,8,10"
+
+generateLogFile: true  # Whether to generate log files
+
+logConfig:
+  verticalLevel: LOG_DEBUG  # Can be LOG_DEBUG, LOG_INFO, LOG_WARN, or LOG_NONE
+  Horizontal_Level:
+    PDCP: true
+    SCTP: true
+    F1AP: true
+    RRC: true
+    NGAP: true
+    GTPU: true
+    CU_APP: true
+    ARIA: true
+    SDAP: true
+    DTLS : true
+    printTimeStamp: true  # Whether to print timestamps in logs
+
+
+logFileConfig:
+  verticalLevel: LOG_DEBUG  # Can be LOG_DEBUG, LOG_INFO, LOG_WARN, or LOG_NONE
+  Horizontal_Level:
+    PDCP: true
+    SCTP: true
+    F1AP: true
+    RRC: true
+    NGAP: true
+    GTPU: true
+    CU_APP: true
+    ARIA: true
+    SDAP: true
+    DTLS : true
+    printTimeStamp: true
