@@ -1,0 +1,2 @@
+cd cmake_targets/ran_build/build
+sudo ./aria_l2_app ../../../configs/ARIA_DU.yml

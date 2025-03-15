@@ -1,0 +1,3 @@
+cd cmake_targets/ran_build/build
+sudo ./aria_l3_app ../../../configs/ARIA_CU.yaml
+
