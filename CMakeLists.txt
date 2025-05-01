@@ -33,7 +33,7 @@ if(NOT DEFINED ENV{CPM_SOURCE_CACHE})
 endif()
 include("cmake_targets/CPM.cmake")
 
-
+set(OPENSSL_ROOT_DIR ${CMAKE_SOURCE_DIR}/pqc/openssl)
 find_package(OpenSSL 3.3.1 REQUIRED)
 
 # Find OpenSSL libraries
