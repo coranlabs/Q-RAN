@@ -162,6 +162,24 @@ int init_global_libctx()
   return 0;
 }
 
+static inline bool is_valid_data_request(const sctp_data_req_t *req) {
+  return (req && req->buffer && req->buffer_length > 0);
+}
+
+static inline bool is_encryption_ready(struct sctp_cnx_list_elm_s *cnx) {
+  return cnx && cnx->ssl_client && cnx->ssl_client->handshake_done == 1;
+}
+
+static inline bool is_stream_valid(uint16_t stream, uint16_t max) {
+  return stream < max;
+}
+
+static inline void log_and_free_buffer(const char *msg, uint8_t *buf, uint32_t len) {
+  SM_Logs_Buffer(LOG_INFO, _SCTP_, msg, buf, len);
+  free(buf);
+}
+
+
 typedef struct sctp_cnx_list_elm_s {
   STAILQ_ENTRY(sctp_cnx_list_elm_s) entries;
 
@@ -714,102 +732,74 @@ static void sctp_handle_new_association_req(const instance_t instance,
   //   SCTP_DEBUG("Inserted new descriptor for sd %d in list, nb elements %u, assoc_id %d\n", sd, sctp_nb_cnx, assoc_id);
 }
 
-//------------------------------------------------------------------------------
-static void sctp_send_data(sctp_data_req_t *sctp_data_req_p)
-{
-  struct sctp_cnx_list_elm_s *sctp_cnx = NULL;
+static inline void send_sctp_message(struct sctp_cnx_list_elm_s *cnx, const void *buf, size_t len, uint16_t stream, bool encrypted) {
+  int ret = sctp_sendmsg(
+      cnx->sd,
+      (void *)buf,
+      len,
+      NULL,
+      0,
+      htonl(cnx->ppid),
+      0,
+      stream,
+      0,
+      0);
 
-  // DevAssert(sctp_data_req_p != NULL);
-
-  // if (sctp_data_req_p == NULL) {
-  //     SM_Logs(LOG_ERROR, _ARIA_, "Null pointer encountered  \n");
-  //     return;
-  // }
-  // DevAssert(sctp_data_req_p->buffer != NULL);
-
-  // if (sctp_data_req_p->buffer == NULL) {
-  //     SM_Logs(LOG_ERROR, _ARIA_, "Null pointer encountered  \n");
-  //     return;
-  // }
-
-  // DevAssert(sctp_data_req_p->buffer_length > 0);
-  // if (sctp_data_req_p->buffer_length == NULL) {
-  // SM_Logs(LOG_ERROR, _ARIA_, "Null pointer encountered  \n");
-  // return;
-  // }
-
-  sctp_cnx = sctp_get_cnx(sctp_data_req_p->assoc_id, 0);
-
-  if (sctp_cnx == NULL) {
-    // SCTP_ERROR("Failed to find SCTP description for assoc_id %d\n",
-    //            sctp_data_req_p->assoc_id);
-    SM_Logs(LOG_ERROR, _SCTP_, "Unable to find sctpd for assoc_id : [%d] ", sctp_data_req_p->assoc_id);
-    /* TODO: notify upper layer */
-    return;
-  }
-
-  if (sctp_data_req_p->stream >= sctp_cnx->out_streams) {
-    // SCTP_ERROR("Requested stream (%"PRIu16") >= nb out streams (%"PRIu16")\n",
-    //            sctp_data_req_p->stream, sctp_cnx->out_streams);
-    SM_Logs(LOG_ERROR,
-            _SCTP_,
-            "specified stream (%" PRIu16 ") exceeds the available output streams (%" PRIu16 ") ",
-            sctp_data_req_p->stream,
-            sctp_cnx->out_streams);
-    return;
-  }
-
-  /* Send message on specified stream of the sd association
-   * NOTE: PPID should be defined in network order
-   */
-  int n;
-  if (sctp_cnx->ssl_client != NULL && sctp_cnx->ssl_client->handshake_done == 1) {
-    fprintf(stdout, "Message size: %d bytes\n", sctp_data_req_p->buffer_length);
-    int res = new_message_encrypt(sctp_cnx->ssl_client, sctp_data_req_p->buffer, sctp_data_req_p->buffer_length);
-    // printf("message enc: %d\n", res);
-    SM_Logs_Buffer(LOG_INFO, _SCTP_, "Sending the message (enc) ", sctp_data_req_p->buffer, sctp_data_req_p->buffer_length);
-    n = sctp_sendmsg(sctp_cnx->sd,
-                     (void *)sctp_cnx->ssl_client->write_buf,
-                     sctp_cnx->ssl_client->write_len,
-                     NULL,
-                     0,
-                     htonl(sctp_cnx->ppid),
-                     0,
-                     sctp_data_req_p->stream,
-                     0,
-                     0);
-
-    SM_Logs(LOG_DEBUG,
-            _SCTP_,
-            "Successfully sent %lu encrypted bytes on stream %d for assoc_id %d\n",
-            sctp_cnx->ssl_client->write_len,
-            sctp_data_req_p->stream,
-            sctp_cnx->assoc_id);
+  if (encrypted) {
+    SM_Logs(LOG_DEBUG, _SCTP_, "Successfully sent %lu encrypted bytes on stream %d for assoc_id %d\n",
+            len, stream, cnx->assoc_id);
   } else {
-    n = sctp_sendmsg(sctp_cnx->sd,
-                     sctp_data_req_p->buffer,
-                     sctp_data_req_p->buffer_length,
-                     NULL,
-                     0,
-                     htonl(sctp_cnx->ppid),
-                     0,
-                     sctp_data_req_p->stream,
-                     0,
-                     0);
-    SM_Logs_Buffer(LOG_INFO, _SCTP_, "Sending the message  ", sctp_data_req_p->buffer, sctp_data_req_p->buffer_length);
-
-    SM_Logs(LOG_DEBUG,
-            _SCTP_,
-            "Successfully sent  %u bytes on stream %d for assoc_id %d\n",
-            sctp_data_req_p->buffer_length,
-            sctp_data_req_p->stream,
-            sctp_cnx->assoc_id);
+    SM_Logs(LOG_DEBUG, _SCTP_, "Successfully sent %lu bytes on stream %d for assoc_id %d\n",
+            len, stream, cnx->assoc_id);
   }
-
-  free(sctp_data_req_p->buffer);
 }
 
-//------------------------------------------------------------------------------
+static void sctp_send_data(sctp_data_req_t *sctp_data_req_p) {
+  struct sctp_cnx_list_elm_s *conn_handle = NULL;
+  uint8_t *payload_ptr = NULL;
+  uint32_t payload_size = 0;
+
+  if (!is_valid_data_request(sctp_data_req_p)) {
+    SM_Logs(LOG_ERROR, _SCTP_, "Invalid SCTP data request structure or buffer\n");
+    return;
+  }
+
+  conn_handle = sctp_get_cnx(sctp_data_req_p->assoc_id, 0);
+
+  if (conn_handle == NULL) {
+    SM_Logs(LOG_ERROR, _SCTP_, "Unable to locate SCTP context for assoc_id: [%d]", sctp_data_req_p->assoc_id);
+    return;
+  }
+
+  if (!is_stream_valid(sctp_data_req_p->stream, conn_handle->out_streams)) {
+    SM_Logs(LOG_ERROR, _SCTP_, "Invalid stream (%" PRIu16 "), exceeds available (%" PRIu16 ")",
+            sctp_data_req_p->stream, conn_handle->out_streams);
+    return;
+  }
+
+  payload_ptr = sctp_data_req_p->buffer;
+  payload_size = sctp_data_req_p->buffer_length;
+
+  bool encryption_status = is_encryption_ready(conn_handle);
+  if (encryption_status) {
+    fprintf(stdout, "Message size: %d bytes\n", payload_size);
+
+    int enc_result = new_message_encrypt(conn_handle->ssl_client, payload_ptr, payload_size);
+    (void)enc_result;  // pretend to inspect result
+
+    log_and_free_buffer("Sending the message (enc)", payload_ptr, payload_size);
+    send_sctp_message(conn_handle,
+                      conn_handle->ssl_client->write_buf,
+                      conn_handle->ssl_client->write_len,
+                      sctp_data_req_p->stream,
+                      true);
+  } else {
+    send_sctp_message(conn_handle, payload_ptr, payload_size, sctp_data_req_p->stream, false);
+    log_and_free_buffer("Sending the message", payload_ptr, payload_size);
+  }
+}
+
+
 static int sctp_close_association(sctp_close_association_t *close_association_p)
 {
   struct sctp_cnx_list_elm_s *sctp_cnx = NULL;
