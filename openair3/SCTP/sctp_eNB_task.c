@@ -162,22 +162,6 @@ int init_global_libctx()
   return 0;
 }
 
-static inline bool is_valid_data_request(const sctp_data_req_t *req) {
-  return (req && req->buffer && req->buffer_length > 0);
-}
-
-static inline bool is_encryption_ready(struct sctp_cnx_list_elm_s *cnx) {
-  return cnx && cnx->ssl_client && cnx->ssl_client->handshake_done == 1;
-}
-
-static inline bool is_stream_valid(uint16_t stream, uint16_t max) {
-  return stream < max;
-}
-
-static inline void log_and_free_buffer(const char *msg, uint8_t *buf, uint32_t len) {
-  SM_Logs_Buffer(LOG_INFO, _SCTP_, msg, buf, len);
-  free(buf);
-}
 
 
 typedef struct sctp_cnx_list_elm_s {
@@ -229,6 +213,24 @@ struct sctp_cnx_list_elm_s *sctp_get_cnx(sctp_assoc_t assoc_id, int sd)
 
   return NULL;
 }
+
+static inline bool is_valid_data_request(const sctp_data_req_t *req) {
+  return (req && req->buffer && req->buffer_length > 0);
+}
+
+static inline bool is_encryption_ready(struct sctp_cnx_list_elm_s *cnx) {
+  return cnx && cnx->ssl_client && cnx->ssl_client->handshake_done == 1;
+}
+
+static inline bool is_stream_valid(uint16_t stream, uint16_t max) {
+  return stream < max;
+}
+
+static inline void log_and_free_buffer(const char *msg, uint8_t *buf, uint32_t len) {
+  SM_Logs_Buffer(LOG_INFO, _SCTP_, msg, buf, len);
+  free(buf);
+}
+
 
 //------------------------------------------------------------------------------
 static inline void sctp_eNB_accept_associations_multi(struct sctp_cnx_list_elm_s *sctp_cnx)

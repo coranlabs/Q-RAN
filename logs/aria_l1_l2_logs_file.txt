@@ -1,108 +1,108 @@
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] PARAMETERS ARE CONFIGURED. ASSIGNING SHARED STRUCTURES FOR COMMUNICATION BETWEEN LAYERS
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] LAYER 1 Parameters: Transmission Amplitude: 3276 , Receiving Thread Cores: 8
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] NORTHBOUND INTERFACE FOR LAYER 1 PREPARED
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] POSITIONING CONFIGURATION PROCEDURE STATUS: [0;31mFAILED[0m ToA And AoA Configuration Not Found.
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Task: [1;33mInitializing structures....[0m
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] PARAMETERS ARE CONFIGURED. ASSIGNING SHARED STRUCTURES FOR COMMUNICATION BETWEEN LAYERS
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] LAYER 1 Parameters: Transmission Amplitude: 3276 , Receiving Thread Cores: 8
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] NORTHBOUND INTERFACE FOR LAYER 1 PREPARED
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] POSITIONING CONFIGURATION PROCEDURE STATUS: [0;31mFAILED[0m ToA And AoA Configuration Not Found.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Task: [1;33mInitializing structures....[0m
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] [1;32mStructure Initialization Successful[0m
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] PUSCH LIMITS: GOAL: 200, Error: 10
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] PUCCH LIMITS: GOAL: 150, Error: 10
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Other Metrics: ssb OffSetPointA: 252, ssb_SubCarrierOffest: 12
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] ANTENNA INFORMATION: RX NUMBER: 2, TX NUMBER: 4
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Initialization Parameters: DL Resource Blocks: 273 | Carrier Offset: $d | CP Samples (Normal): 2458 | CP Samples (First): 288 | OFDM Symbol FFT Size: -529542794.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] [1;32mStructure Initialization Successful[0m
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] PUSCH LIMITS: GOAL: 200, Error: 10
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] PUCCH LIMITS: GOAL: 150, Error: 10
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Other Metrics: ssb OffSetPointA: 252, ssb_SubCarrierOffest: 12
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] ANTENNA INFORMATION: RX NUMBER: 2, TX NUMBER: 4
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Initialization Parameters: DL Resource Blocks: 273 | Carrier Offset: $d | CP Samples (Normal): 2458 | CP Samples (First): 288 | OFDM Symbol FFT Size: 456175990.
 
-[2025-07-13T09:26:47] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] F1AP CRITICAL PARAMETERS ARE SET AS: MCC 1, MNC 1 TAC 1
-[2025-07-13T09:26:47] [ INFO ] [GNB_APP] Detected Cell Configured according to: TDD
-[2025-07-13T09:26:47] [ INFO ] [GNB_APP] SDAP LAYER STATUS:[0;31misDISABLED[0m
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] TASK_SCTP : Initiating the thread creation procedure
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] TASK_GNB_APP : Initiating the thread creation procedure
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] TASK_DU_F1 : Initiating the thread creation procedure
-[2025-07-13T09:26:47] [ INFO ] [ ARIA  ] TASK_GTPV1_U : Initiating the thread creation procedure
-[2025-07-13T09:26:47] [ INFO ] [ GTPU  ] Initializing UDP socket for local address binding
-[2025-07-13T09:26:47] [ INFO ] [ GTPU  ] Successfully instantiated GTP-U interface instance
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] Library context loaded.
+[2025-07-13T13:19:30] [ INFO ] [MAC    ] Important Metrics: DUPLEX MODE & SPACING: TDD , 0. Using NR Band 78
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] F1AP CRITICAL PARAMETERS ARE SET AS: MCC 1, MNC 1 TAC 1
+[2025-07-13T13:19:30] [ INFO ] [GNB_APP] Detected Cell Configured according to: TDD
+[2025-07-13T13:19:30] [ INFO ] [GNB_APP] SDAP LAYER STATUS:[0;31misDISABLED[0m
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] TASK_SCTP : Initiating the thread creation procedure
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] TASK_GNB_APP : Initiating the thread creation procedure
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] TASK_DU_F1 : Initiating the thread creation procedure
+[2025-07-13T13:19:30] [ INFO ] [ ARIA  ] TASK_GTPV1_U : Initiating the thread creation procedure
+[2025-07-13T13:19:30] [ INFO ] [ GTPU  ] Initializing UDP socket for local address binding
+[2025-07-13T13:19:30] [ INFO ] [ GTPU  ] Successfully instantiated GTP-U interface instance
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] Library context loaded.
 
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] OSSL_PROVIDER available
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] OSSL_PROVIDER available
 
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] Provider name: oqsprovider
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] Provider name: oqsprovider
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Awaiting full configuration of all Layer 1 instances. Operational status: [0;33mIdle [0m 
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Awaiting full configuration of all Layer 1 instances. Operational status: [0;33mIdle [0m 
  
 
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] OSSL provider - oqs loaded.
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] OSSL provider - oqs loaded.
 
-[2025-07-13T09:26:47] [DEBUG ] [DTLS   ] CA Certificate loaded.
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] Client DTLS Context created.
+[2025-07-13T13:19:30] [DEBUG ] [DTLS   ] CA Certificate loaded.
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] Client DTLS Context created.
 
-[2025-07-13T09:26:47] [DEBUG ] [DTLS   ] DTLS version: DTLSv1.3
-[2025-07-13T09:26:47] [ INFO ] [DTLS   ] DTLS Client bound to the socket.
+[2025-07-13T13:19:30] [DEBUG ] [DTLS   ] DTLS version: DTLSv1.3
+[2025-07-13T13:19:30] [ INFO ] [DTLS   ] DTLS Client bound to the socket.
 
-[2025-07-13T09:26:47] [DEBUG ] [ SCTP  ] Received association change notification. Processing state change.
-[2025-07-13T09:26:47] [ INFO ] [ SCTP  ] New association established: In Streams=1, Out Streams=1
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Layer 1 (Physical Layer) configuration sequence completed. Operational status: [0;32mACTIVE[0m
+[2025-07-13T13:19:30] [DEBUG ] [ SCTP  ] Received association change notification. Processing state change.
+[2025-07-13T13:19:30] [ INFO ] [ SCTP  ] New association established: In Streams=1, Out Streams=1
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Layer 1 (Physical Layer) configuration sequence completed. Operational status: [0;32mACTIVE[0m
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Synchronizing temporal framework: Configuring clock reference to INTERNAL oscillator.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Synchronizing temporal framework: Configuring clock reference to INTERNAL oscillator.
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Timebase calibration: Assigning INTERNAL source for temporal alignment.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Timebase calibration: Assigning INTERNAL source for temporal alignment.
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] Resource Allocation Summary: PHY Layer Instances: 0 | RU Entities: 1 | Allocated Compute Units (CU): 18.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] Resource Allocation Summary: PHY Layer Instances: 0 | RU Entities: 1 | Allocated Compute Units (CU): 18.
 
-[2025-07-13T09:26:47] [ INFO ] [ PHY   ] RU Process Initialization: Instance 0 | Fronthaul Protocol: -530100152 | Synchronization Source: External Timing Device.
+[2025-07-13T13:19:30] [ INFO ] [ PHY   ] RU Process Initialization: Instance 0 | Fronthaul Protocol: 455618632 | Synchronization Source: External Timing Device.
 
-[2025-07-13T09:26:48] [ INFO ] [DTLS   ] Received new DTLS handshake request
-[2025-07-13T09:26:48] [ INFO ] [DTLS   ] SSL Handshake started
+[2025-07-13T13:19:31] [ INFO ] [DTLS   ] Received new DTLS handshake request
+[2025-07-13T13:19:31] [ INFO ] [DTLS   ] SSL Handshake started
 
-[2025-07-13T09:26:48] [ INFO ] [DTLS   ] SSL state: before SSL initialization
-[2025-07-13T09:26:48] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client hello
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client hello
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server hello
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: TLSv1.3 read encrypted extensions
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server certificate request
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server certificate
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: TLSv1.3 read server certificate verify
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read finished
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client certificate
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write certificate verify
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write finished
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL Handshake finished
+[2025-07-13T13:19:31] [ INFO ] [DTLS   ] SSL state: before SSL initialization
+[2025-07-13T13:19:31] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client hello
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client hello
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server hello
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: TLSv1.3 read encrypted extensions
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server certificate request
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read server certificate
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: TLSv1.3 read server certificate verify
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS read finished
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write client certificate
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write certificate verify
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL state: SSLv3/TLS write finished
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL Handshake finished
 
-[2025-07-13T09:26:49] [DEBUG ] [DTLS   ] No session ticket available.
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] Hostname: None
+[2025-07-13T13:19:32] [DEBUG ] [DTLS   ] No session ticket available.
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] Hostname: None
 
-[2025-07-13T09:26:49] [DEBUG ] [DTLS   ] Peer certificate validated against Private CA:
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] Subject Name: /CN=ARIA CU
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] Issuer Name: /CN=ARIA Private CA
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] Signature Algorithm: p384_mldsa65
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ]  CA Signature :  (Length 6830 bytes)
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 1:TLS_AES_256_GCM_SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 2:TLS_CHACHA20_POLY1305_SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 3:TLS_AES_128_GCM_SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 4:ECDHE-ECDSA-AES256-GCM-SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 5:ECDHE-RSA-AES256-GCM-SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 6:DHE-RSA-AES256-GCM-SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 7:ECDHE-ECDSA-CHACHA20-POLY1305
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 8:ECDHE-RSA-CHACHA20-POLY1305
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 9:DHE-RSA-CHACHA20-POLY1305
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 10:ECDHE-ECDSA-AES128-GCM-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 11:ECDHE-RSA-AES128-GCM-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 12:DHE-RSA-AES128-GCM-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 13:ECDHE-ECDSA-AES256-SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 14:ECDHE-RSA-AES256-SHA384
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 15:DHE-RSA-AES256-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 16:ECDHE-ECDSA-AES128-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 17:ECDHE-RSA-AES128-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 18:DHE-RSA-AES128-SHA256
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 19:ECDHE-ECDSA-AES256-SHA
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher available: 20:ECDHE-RSA-AES256-SHA
-[2025-07-13T09:26:49] [ INFO ] [DTLS   ] SSL cipher negotiated: TLS_AES_256_GCM_SHA384
-[2025-07-13T09:26:49] [ WARN ] [DTLS   ] Group NID found, but name is unknown.
-[2025-07-13T09:26:50] [ INFO ] [ F1AP  ] Initiating the F1AP Setup Request transmission to establish communication with the Central Unit (CU).
-[2025-07-13T09:26:50] [DEBUG ] [ F1AP  ] Encoded F1AP Setup Request Buffer:
+[2025-07-13T13:19:32] [DEBUG ] [DTLS   ] Peer certificate validated against Private CA:
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] Subject Name: /CN=ARIA CU
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] Issuer Name: /CN=ARIA Private CA
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] Signature Algorithm: p384_mldsa65
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ]  CA Signature :  (Length 6830 bytes)
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 1:TLS_AES_256_GCM_SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 2:TLS_CHACHA20_POLY1305_SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 3:TLS_AES_128_GCM_SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 4:ECDHE-ECDSA-AES256-GCM-SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 5:ECDHE-RSA-AES256-GCM-SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 6:DHE-RSA-AES256-GCM-SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 7:ECDHE-ECDSA-CHACHA20-POLY1305
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 8:ECDHE-RSA-CHACHA20-POLY1305
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 9:DHE-RSA-CHACHA20-POLY1305
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 10:ECDHE-ECDSA-AES128-GCM-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 11:ECDHE-RSA-AES128-GCM-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 12:DHE-RSA-AES128-GCM-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 13:ECDHE-ECDSA-AES256-SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 14:ECDHE-RSA-AES256-SHA384
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 15:DHE-RSA-AES256-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 16:ECDHE-ECDSA-AES128-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 17:ECDHE-RSA-AES128-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 18:DHE-RSA-AES128-SHA256
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 19:ECDHE-ECDSA-AES256-SHA
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher available: 20:ECDHE-RSA-AES256-SHA
+[2025-07-13T13:19:32] [ INFO ] [DTLS   ] SSL cipher negotiated: TLS_AES_256_GCM_SHA384
+[2025-07-13T13:19:32] [ WARN ] [DTLS   ] Group NID found, but name is unknown.
+[2025-07-13T13:19:33] [ INFO ] [ F1AP  ] Initiating the F1AP Setup Request transmission to establish communication with the Central Unit (CU).
+[2025-07-13T13:19:33] [DEBUG ] [ F1AP  ] Encoded F1AP Setup Request Buffer:
 00 01 00 80 D4 00 00 05  00 4E 00 02 00 01 00 2A 
 00 03 20 0E 00 00 2D 40  0E 05 80 43 6F 72 61 6E 
 4C 61 62 73 2D 44 55 00  2C 00 80 9F 00 00 00 2B 
@@ -117,11 +117,11 @@
 15 BC 2A 68 54 CD AA E0  00 0D 5D 00 82 A0 36 00 
 A3 C3 7B 10 C5 04 00 00  20 00 80 00 AB 00 0A 80 
 00 00 00 C7 40 03 11 03  00 
-[2025-07-13T09:26:50] [DEBUG ] [ F1AP  ] Forwarding F1AP Setup Request to SCTP Task.
-[2025-07-13T09:26:50] [ INFO ] [ F1AP  ] F1AP Setup Request Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:26:50] [ INFO ] [DTLS   ] Encrypted buffer: 217 bytes
-[2025-07-13T09:26:50] [ INFO ] [DTLS   ] SSL Write: 217 bytes
-[2025-07-13T09:26:50] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:19:33] [DEBUG ] [ F1AP  ] Forwarding F1AP Setup Request to SCTP Task.
+[2025-07-13T13:19:33] [ INFO ] [ F1AP  ] F1AP Setup Request Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:19:33] [ INFO ] [DTLS   ] Encrypted buffer: 217 bytes
+[2025-07-13T13:19:33] [ INFO ] [DTLS   ] SSL Write: 217 bytes
+[2025-07-13T13:19:33] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 01 00 80 D4 00 00 05  00 4E 00 02 00 01 00 2A 
 00 03 20 0E 00 00 2D 40  0E 05 80 43 6F 72 61 6E 
 4C 61 62 73 2D 44 55 00  2C 00 80 9F 00 00 00 2B 
@@ -136,42 +136,42 @@ A3 C3 7B 10 C5 04 00 00  20 00 80 00 AB 00 0A 80
 15 BC 2A 68 54 CD AA E0  00 0D 5D 00 82 A0 36 00 
 A3 C3 7B 10 C5 04 00 00  20 00 80 00 AB 00 0A 80 
 00 00 00 C7 40 03 11 03  00 
-[2025-07-13T09:26:50] [DEBUG ] [ SCTP  ] Successfully sent 247 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:19:33] [DEBUG ] [ SCTP  ] Successfully sent 247 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:26:50] [ INFO ] [DTLS   ] SSL read: 66 bytes
+[2025-07-13T13:19:33] [ INFO ] [DTLS   ] SSL read: 66 bytes
 
-[2025-07-13T09:26:50] [DEBUG ] [ SCTP  ] Message received: Length=96, Stream=0
-[2025-07-13T09:26:50] [ INFO ] [ F1AP  ] Handling F1 Setup Response.
-[2025-07-13T09:26:50] [ INFO ] [ F1AP  ] Successfully decoded F1 Setup Response, Transaction ID: 1, gNB CU Name: CoranLabs-CU, Number of cells to activate: 1, RRC Version: 4.1.1.
-[2025-07-13T09:26:50] [ INFO ] [MAC    ] F1 Setup Response successfully received from Central Unit (CU). Proceeding with configuration of network entities and resource allocation.
-[2025-07-13T09:26:50] [ INFO ] [MAC    ] Initiating RRC protocol sequence with Central Unit. Utilizing latest RRC Version for session establishment and control signaling
-[2025-07-13T09:26:50] [ INFO ] [MAC    ] F1 Setup Response successfully processed. Network configuration is ready.
-[2025-07-13T09:26:50] [DEBUG ] [MAC    ] Clearing all UE states in the DU to ensure consistency with the CU.
-[2025-07-13T09:26:50] [ INFO ] [ ARIA  ] ru_thread : Initiating the thread creation procedure
-[2025-07-13T09:26:50] [ INFO ] [ ARIA  ] Radio UNIT (0) has been allocated CPU:  17
-[2025-07-13T09:26:50] [ INFO ] [ PHY   ] Initialization Parameters: DL Resource Blocks: 273 | Carrier Offset: $d | CP Samples (Normal): 2458 | CP Samples (First): 288 | OFDM Symbol FFT Size: 0.
+[2025-07-13T13:19:33] [DEBUG ] [ SCTP  ] Message received: Length=96, Stream=0
+[2025-07-13T13:19:33] [ INFO ] [ F1AP  ] Handling F1 Setup Response.
+[2025-07-13T13:19:33] [ INFO ] [ F1AP  ] Successfully decoded F1 Setup Response, Transaction ID: 1, gNB CU Name: CoranLabs-CU, Number of cells to activate: 1, RRC Version: 4.1.1.
+[2025-07-13T13:19:33] [ INFO ] [MAC    ] F1 Setup Response successfully received from Central Unit (CU). Proceeding with configuration of network entities and resource allocation.
+[2025-07-13T13:19:33] [ INFO ] [MAC    ] Initiating RRC protocol sequence with Central Unit. Utilizing latest RRC Version for session establishment and control signaling
+[2025-07-13T13:19:33] [ INFO ] [MAC    ] F1 Setup Response successfully processed. Network configuration is ready.
+[2025-07-13T13:19:33] [DEBUG ] [MAC    ] Clearing all UE states in the DU to ensure consistency with the CU.
+[2025-07-13T13:19:33] [ INFO ] [ ARIA  ] ru_thread : Initiating the thread creation procedure
+[2025-07-13T13:19:33] [ INFO ] [ ARIA  ] Radio UNIT (0) has been allocated CPU:  14
+[2025-07-13T13:19:33] [ INFO ] [ PHY   ] Initialization Parameters: DL Resource Blocks: 273 | Carrier Offset: $d | CP Samples (Normal): 2458 | CP Samples (First): 288 | OFDM Symbol FFT Size: 0.
 
-[2025-07-13T09:26:50] [ INFO ] [ PHY   ] RU Signal Buffer Initialization: Interface: IF4p5 RRU (Southbound) | TX Buffers: 4 | RX Buffers: 4 | Remote Radio Unit (RRU) Configuration in Progress.
+[2025-07-13T13:19:33] [ INFO ] [ PHY   ] RU Signal Buffer Initialization: Interface: IF4p5 RRU (Southbound) | TX Buffers: 4 | RX Buffers: 4 | Remote Radio Unit (RRU) Configuration in Progress.
 
-[2025-07-13T09:26:53] [ INFO ] [ ARIA  ] ORAN System Bootstrap: Initialization Sequence Completed. Awaiting Operational State Confirmation.
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool0_3 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool1_5 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool2_7 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool3_9 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool4_11 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool5_12 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool6_13 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] Tpool7_15 : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] L1_rx_thread : Initiating the thread creation procedure
-[2025-07-13T09:26:54] [ INFO ] [ ARIA  ] L1_tx_thread : Initiating the thread creation procedure
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding Initial UL RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Initial UL RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 233 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 233 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
-00 0B 40 80 E4 00 00 06  00 29 00 03 40 59 5C 00 
+[2025-07-13T13:19:36] [ INFO ] [ ARIA  ] ORAN System Bootstrap: Initialization Sequence Completed. Awaiting Operational State Confirmation.
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool0_3 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool1_5 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool2_7 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool3_9 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool4_11 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool5_12 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool6_13 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] Tpool7_15 : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] L1_rx_thread : Initiating the thread creation procedure
+[2025-07-13T13:19:37] [ INFO ] [ ARIA  ] L1_tx_thread : Initiating the thread creation procedure
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding Initial UL RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Initial UL RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 233 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 233 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
+00 0B 40 80 E4 00 00 06  00 29 00 03 40 96 0E 00 
 6F 00 09 00 00 F1 10 00  0B C6 14 E0 00 5F 00 03 
-00 59 5C 00 32 00 07 06  1B 92 A3 E5 C8 86 00 80 
+00 96 0E 00 32 00 07 06  13 6E C8 45 E6 46 00 80 
 00 80 B0 80 AE 5C 00 B0  01 11 7A EC 70 10 61 F0 
 00 7C 02 04 68 3C 08 00  04 12 59 81 95 00 81 FF 
 FF FF FF FF 01 00 00 37  14 42 00 00 80 16 50 00 
@@ -184,147 +184,147 @@ FF FF FF FF 01 00 00 37  14 42 00 00 80 16 50 00
 00 00 00 00 00 00 02 14  20 08 01 00 02 0A 80 02 
 04 B4 00 01 43 83 00 23  8C 7E 06 88 00 A0 03 84 
 00 2A 60 00 4E 40 02 00  00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 263 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 263 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL read: 212 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL read: 212 bytes
 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Message received: Length=242, Stream=0
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 0, RRC Container Length = 179.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] No CU-related data exists for RNTI 595c. Adding new CU UE ID: 1.
-[2025-07-13T09:27:12] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 0.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 141 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 141 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Message received: Length=242, Stream=0
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 0, RRC Container Length = 179.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] No CU-related data exists for RNTI 960e. Adding new CU UE ID: 1.
+[2025-07-13T13:20:00] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 0.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 141 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 141 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 80 88 00 00 04  00 28 00 02 00 01 00 29 
-00 03 40 59 5C 00 40 00  01 20 00 32 00 6F 6E 00 
-00 12 C0 19 5F C0 06 17  E0 13 32 90 9B 10 67 E0 
-04 13 90 00 BF 20 0F 11  0C AF E0 00 00 00 00 52 
-E0 4F 07 0F 07 07 10 04  07 E0 04 13 90 00 BF 20 
-0F 11 0C AF E0 00 00 00  00 51 00 10 32 E0 4F 07 
+00 03 40 96 0E 00 40 00  01 20 00 32 00 6F 6E 00 
+00 12 C0 19 5F C0 06 17  E0 1A E7 ED 0A B0 67 E0 
+04 14 90 00 BF 20 0F 11  0C AF E0 00 00 00 00 62 
+E0 4F 07 0F 07 07 10 04  07 E0 04 14 90 00 BF 20 
+0F 11 0C AF E0 00 00 00  00 61 00 10 32 E0 4F 07 
 0F 07 02 F0 A0 40 10 10  20 30 40 11 12 23 35 20 
 0F 11 00 00 00 11 70 7F  07 0C 04 01 98 0B 01 80 
 10 17 40 00 09 05 30 10  10 00 00 00 00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 171 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 171 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL read: 43 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL read: 43 bytes
 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Message received: Length=73, Stream=0
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 13.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 64 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 64 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Message received: Length=73, Stream=0
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 13.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 64 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 64 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 3C 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 23 22 00 01 
-3A 0C BF 00 EB CB E6 45  03 BF 00 2E 00 06 80 80 
+03 40 96 0E 00 40 00 01  20 00 32 00 23 22 00 01 
+3A 0C BF 00 B6 0A CE B9  83 BF 00 2E 00 06 80 80 
 78 88 78 7F 80 00 00 00  00 00 08 00 00 00 00 00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 94 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 94 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL read: 81 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL read: 81 bytes
 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Message received: Length=111, Stream=0
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 51.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 50 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 50 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Message received: Length=111, Stream=0
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 51.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 50 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 50 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 2E 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 15 14 00 02 
-3A 05 BF 00 C2 C2 17 9A  84 3F 00 2C A3 80 00 00 
+03 40 96 0E 00 40 00 01  20 00 32 00 15 14 00 02 
+3A 05 BF 00 82 7C 44 0E  84 3F 00 2C A3 80 00 00 
 00 00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 80 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 80 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL read: 81 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL read: 81 bytes
 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Message received: Length=111, Stream=0
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 51.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 67 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 67 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Message received: Length=111, Stream=0
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 51.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 67 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 67 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 3F 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 26 25 00 03 
-3A 0E 3F 00 AC B7 07 A3  04 BF 00 2B 96 88 13 C6 
-E1 2D 28 25 53 94 5A 00  54 2B 7A D9 CA A4 00 00 
+03 40 96 0E 00 40 00 01  20 00 32 00 26 25 00 03 
+3A 0E 3F 00 82 F0 EC D9  04 BF 00 2B 96 88 16 E4 
+4E D8 8C B1 95 94 8F 9D  7A BD 9F 0F 6B 02 00 00 
 00 00 00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 97 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 97 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL read: 60 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL read: 60 bytes
 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Message received: Length=90, Stream=0
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 30.
-[2025-07-13T09:27:12] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:12] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:12] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:12] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] Encrypted buffer: 128 bytes
-[2025-07-13T09:27:12] [ INFO ] [DTLS   ] SSL Write: 128 bytes
-[2025-07-13T09:27:12] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Message received: Length=90, Stream=0
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 30.
+[2025-07-13T13:20:00] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:00] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:00] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:00] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] Encrypted buffer: 128 bytes
+[2025-07-13T13:20:00] [ INFO ] [DTLS   ] SSL Write: 128 bytes
+[2025-07-13T13:20:00] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 7C 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 63 62 00 04 
-3A 2C BF 02 27 A3 EE 91  00 3F 00 2F 3B 80 04 9A 
-82 BB C4 3B 28 88 12 78  B8 80 20 3F 00 20 9C 80 
-05 F9 00 78 88 65 7F 00  00 00 00 02 88 00 81 97 
+03 40 96 0E 00 40 00 01  20 00 32 00 63 62 00 04 
+3A 2C BF 02 04 CC 4B 02  80 3F 00 2F 3B 80 04 9A 
+82 BB C4 3B 28 88 12 78  B8 80 20 3F 00 20 A4 80 
+05 F9 00 78 88 65 7F 00  00 00 00 03 08 00 81 97 
 02 78 38 78 38 17 85 02  00 80 81 01 82 00 88 91 
 19 A9 00 78 88 00 00 00  8B 83 F8 38 60 20 0C C0 
 58 0C 00 80 BA 00 00 48  29 80 80 80 00 00 00 00 
-[2025-07-13T09:27:12] [DEBUG ] [ SCTP  ] Successfully sent 158 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:00] [DEBUG ] [ SCTP  ] Successfully sent 158 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 39 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 39 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=69, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 9.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 38 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=69, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 9.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 38 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 22 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 09 08 00 05 
-2C 00 15 92 D8 A4 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  20 00 32 00 09 08 00 05 
+2C 00 69 7B 70 0B 
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 44 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 44 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=74, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 14.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 820 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 820 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=74, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 14.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 820 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 820 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 83 2F 00 00 04  00 28 00 02 00 01 00 29 
-00 03 40 59 5C 00 40 00  01 20 00 32 00 83 15 83 
+00 03 40 96 0E 00 40 00  01 20 00 32 00 83 15 83 
 13 00 06 4E 82 20 C2 3A  68 14 00 15 D3 D6 80 C5 
 90 00 C0 90 0B 04 98 B0  00 C6 1E 81 82 6C 83 0E 
 7C C3 1E 50 B0 38 26 01  01 88 E0 59 41 F0 6F 58 
@@ -341,77 +341,77 @@ D9 40 00 14 00 00 05 07  C0 2D 60 8C 21 A0 81 07
 0F EC 00 00 01 41 B1 33  58 23 08 68 20 41 D2 01 
 16 5B 26 2A 86 87 3E 23  8F 40 CF B0 27 C6 39 F3 
 0C 79 42 C0 E0 70 F0 9C  00 16 C0 07 00 05 B0 03 
-A0 D8 51 81 AC 11 84 34  10 20 E[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 850 encrypted bytes on stream 0 for assoc_id 1871
+A0 D8 51 81 AC 11 84 34  10 20 E[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 850 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 850 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 850 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 98 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 98 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=128, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 68.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 49 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 49 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=128, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 68.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 49 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 49 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 2D 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 14 13 00 07 
-3A 05 3F 01 41 1F C6 00  00 BF 00 21 80 99 F4 CB 
-7C 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 79 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  20 00 32 00 14 13 00 07 
+3A 05 3F 01 03 84 06 17  80 BF 00 21 80 B3 18 55 
+1B 
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 79 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 78 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 78 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=108, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 48.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 117 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 117 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=108, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 48.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 117 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 117 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 71 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 58 57 00 08 
-3A 27 3F 01 3A 25 9F 3A  81 3F 00 33 80 80 1B 17 
-00 E5 60 FF FF C8 94 00  80 3D 80 14 C0 40 10 88 
+03 40 96 0E 00 40 00 01  20 00 32 00 58 57 00 08 
+3A 27 3F 01 55 22 06 42  81 3F 00 33 80 80 1B 17 
+00 E6 60 FF FF C8 94 00  80 3D 80 14 C0 40 10 88 
 00 80 00 08 40 83 00 00  00 00 41 83 00 00 00 00 
 00 06 80 00 05 00 00 02  80 00 08 00 00 08 80 00 
 11 80 00 12 00 09 00 C0  92 83 02 B1 B7 B9 30 B7 
-00 EF 9D 34 BA 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 147 encrypted bytes on stream 0 for assoc_id 1871
+00 E3 62 48 B3 
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 147 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 876 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 876 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=906, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Processing UE Context Setup Request received from the Central Unit (CU).
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Decoding service cell and UL configuration details.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Processing RRC information and bearer details.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Processing UE Context Setup Request. Allocating resources for a new or existing UE instance.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Successfully decoded NR UE capability.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] NR capability extracted for UE with RNTI 595c.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Looking up an existing UE context for the provided identifier.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Starting the setup process for SRBs associated with the requested configuration.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Starting SRB setup for UE with RNTI 595c. Number of SRBs: 1.
-[2025-07-13T09:27:13] [DEBUG ] [ RLC   ] Adding SRB ID 2 to RLC for UE with RNTI 595c.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Added RLC Bearer Configuration for logical channel ID 2 to CellGroupConfig.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Starting the setup process for DRBs associated with the requested configuration.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Starting DRB setup for user with RNTI 595c and 1 DRBs.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Added DRB 1 to RLC for user with RNTI 595c.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Configured LCID 4 with priority 90 for user with RNTI 595c.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Created GTP tunnel for DRB 1. DL TEID: 1254143505, DL Address: 50331775.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Updating the CellGroup configuration based on the new UE capabilities.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] UE Context Setup Response successfully sent.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Initiating the transmission of UE Context Setup Response to the Central Unit (CU).
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Encoded UE Context Setup Response Buffer:
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=906, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Processing UE Context Setup Request received from the Central Unit (CU).
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Decoding service cell and UL configuration details.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Processing RRC information and bearer details.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Processing UE Context Setup Request. Allocating resources for a new or existing UE instance.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Successfully decoded NR UE capability.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] NR capability extracted for UE with RNTI 960e.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Looking up an existing UE context for the provided identifier.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Starting the setup process for SRBs associated with the requested configuration.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Starting SRB setup for UE with RNTI 960e. Number of SRBs: 1.
+[2025-07-13T13:20:01] [DEBUG ] [ RLC   ] Adding SRB ID 2 to RLC for UE with RNTI 960e.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Added RLC Bearer Configuration for logical channel ID 2 to CellGroupConfig.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Starting the setup process for DRBs associated with the requested configuration.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Starting DRB setup for user with RNTI 960e and 1 DRBs.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Added DRB 1 to RLC for user with RNTI 960e.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Configured LCID 4 with priority 90 for user with RNTI 960e.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Created GTP tunnel for DRB 1. DL TEID: 2105345488, DL Address: 50331775.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Updating the CellGroup configuration based on the new UE capabilities.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] UE Context Setup Response successfully sent.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Initiating the transmission of UE Context Setup Response to the Central Unit (CU).
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Encoded UE Context Setup Response Buffer:
 40 05 00 80 FE 00 00 05  00 28 00 02 00 01 00 29 
-00 03 40 59 5C 00 27 00  80 CA 00 80 C7 5C 04 B0 
+00 03 40 96 0E 00 27 00  80 CA 00 80 C7 5C 04 B0 
 01 11 7A EC 70 10 61 F0  00 B0 91 11 7A EC 70 10 
 65 E0 00 B1 C0 32 08 6F  C6 1A 0F 05 08 0F 80 40 
 8D 07 81 00 00 82 4B 30  32 A0 10 3F FF FF FF FF 
@@ -425,15 +425,15 @@ E0 20 00 06 E2 88 40 00  10 02 CA 01 00 90 40 00
 00 00 00 00 00 00 00 21  42 00 80 10 00 20 A8 00 
 20 4B 40 00 14 38 30 02  38 C7 E1 E9 80 0A 00 38 
 40 02 A6 00 00 1B 40 10  00 00 1A 40 0B 00 00 1F 
-7F 00 00 03 4A C0 B6 11  00 CA 40 07 00 00 CB 40 
+7F 00 00 03 7D 7D 05 D0  00 CA 40 07 00 00 CB 40 
 02 10 20 
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UE Context Setup Response to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] UE Context Setup Response Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 259 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 259 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UE Context Setup Response to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] UE Context Setup Response Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 259 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 259 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 40 05 00 80 FE 00 00 05  00 28 00 02 00 01 00 29 
-00 03 40 59 5C 00 27 00  80 CA 00 80 C7 5C 04 B0 
+00 03 40 96 0E 00 27 00  80 CA 00 80 C7 5C 04 B0 
 01 11 7A EC 70 10 61 F0  00 B0 91 11 7A EC 70 10 
 65 E0 00 B1 C0 32 08 6F  C6 1A 0F 05 08 0F 80 40 
 8D 07 81 00 00 82 4B 30  32 A0 10 3F FF FF FF FF 
@@ -447,95 +447,95 @@ E0 20 00 06 E2 88 40 00  10 02 CA 01 00 90 40 00
 00 00 00 00 00 00 00 21  42 00 80 10 00 20 A8 00 
 20 4B 40 00 14 38 30 02  38 C7 E1 E9 80 0A 00 38 
 40 02 A6 00 00 1B 40 10  00 00 1A 40 0B 00 00 1F 
-7F 00 00 03 4A C0 B6 11  00 CA 40 07 00 00 CB 40 
+7F 00 00 03 7D 7D 05 D0  00 CA 40 07 00 00 CB 40 
 02 10 20 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 289 encrypted bytes on stream 0 for assoc_id 1871
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 289 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL read: 339 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL read: 339 bytes
 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Message received: Length=369, Stream=0
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 306.
-[2025-07-13T09:27:13] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:13] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:13] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:13] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
-[2025-07-13T09:27:13] [ INFO ] [DTLS   ] SSL Write: 38 bytes
-[2025-07-13T09:27:13] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Message received: Length=369, Stream=0
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 306.
+[2025-07-13T13:20:01] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:01] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:01] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:01] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
+[2025-07-13T13:20:01] [ INFO ] [DTLS   ] SSL Write: 38 bytes
+[2025-07-13T13:20:01] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 22 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 09 08 00 09 
-0C 00 EA 76 10 B9 
-[2025-07-13T09:27:13] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  20 00 32 00 09 08 00 09 
+0C 00 20 2D 1F 3D 
+[2025-07-13T13:20:01] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:49] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] Encrypted buffer: 60 bytes
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] SSL Write: 60 bytes
-[2025-07-13T09:27:49] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] Encrypted buffer: 60 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL Write: 60 bytes
+[2025-07-13T13:20:05] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 38 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  40 00 32 00 1F 1E 00 00 
-3A 0A BF 01 4D 72 3B 79  01 BF 00 33 80 80 03 17 
-00 E5 E8 AC 92 09 00 80  F2 FA F0 CE 
-[2025-07-13T09:27:49] [DEBUG ] [ SCTP  ] Successfully sent 90 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  40 00 32 00 1F 1E 00 00 
+3A 0A BF 01 43 4A 64 CC  01 BF 00 33 80 80 03 17 
+00 E6 E8 AC 92 09 00 80  C0 CE C0 32 
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Successfully sent 90 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] SSL read: 61 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL read: 61 bytes
 
-[2025-07-13T09:27:49] [DEBUG ] [ SCTP  ] Message received: Length=91, Stream=0
-[2025-07-13T09:27:49] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 595c, SRB ID = 1, RRC Container Length = 31.
-[2025-07-13T09:27:49] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
-[2025-07-13T09:27:49] [ INFO ] [MAC    ] Delivering SDU for RNTI 595c on SRB ID 1.
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:49] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] SSL Write: 38 bytes
-[2025-07-13T09:27:49] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Message received: Length=91, Stream=0
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] DL RRC Message Transfer decoded successfully.
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] Message Details: UE RNTI = 960e, SRB ID = 1, RRC Container Length = 31.
+[2025-07-13T13:20:05] [DEBUG ] [MAC    ] Handling DL RRC Message Transfer.
+[2025-07-13T13:20:05] [ INFO ] [MAC    ] Delivering SDU for RNTI 960e on SRB ID 1.
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] Encrypted buffer: 38 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL Write: 38 bytes
+[2025-07-13T13:20:05] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 22 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  20 00 32 00 09 08 00 0A 
-0E 00 C6 2E B8 8C 
-[2025-07-13T09:27:49] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  20 00 32 00 09 08 00 0A 
+0E 00 F5 48 5D D4 
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Successfully sent 68 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:49] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] Encrypted buffer: 58 bytes
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] SSL Write: 58 bytes
-[2025-07-13T09:27:49] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] Encrypted buffer: 58 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL Write: 58 bytes
+[2025-07-13T13:20:05] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 36 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  40 00 32 00 1D 1C 00 01 
-3A 09 BF 01 59 27 22 24  02 3F 00 33 80 80 02 17 
-00 E5 EA 09 00 80 56 D8  08 B8 
-[2025-07-13T09:27:49] [DEBUG ] [ SCTP  ] Successfully sent 88 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  40 00 32 00 1D 1C 00 01 
+3A 09 BF 01 21 52 DB BA  82 3F 00 33 80 80 02 17 
+00 E6 EA 09 00 80 35 19  C3 64 
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Successfully sent 88 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:49] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
-[2025-07-13T09:27:49] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] Encrypted buffer: 63 bytes
-[2025-07-13T09:27:49] [ INFO ] [DTLS   ] SSL Write: 63 bytes
-[2025-07-13T09:27:49] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:05] [DEBUG ] [ F1AP  ] Forwarding UL NR RRC Message Transfer to SCTP Task.
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ]  UL NR RRC Message Transfer Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] Encrypted buffer: 63 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL Write: 63 bytes
+[2025-07-13T13:20:05] [ INFO ] [ SCTP  ] Sending the message (enc):
 00 0D 40 3B 00 00 04 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 00 40 00 01  40 00 32 00 22 21 00 02 
-3A 0C 3F 01 36 E2 E0 16  82 BF 00 22 A4 80 05 F9 
-00 78 88 65 7F 00 00 00  00 03 00 E3 67 D5 F9 
-[2025-07-13T09:27:49] [DEBUG ] [ SCTP  ] Successfully sent 93 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 00 40 00 01  40 00 32 00 22 21 00 02 
+3A 0C 3F 01 6F 24 DE 02  02 BF 00 22 AC 80 05 F9 
+00 78 88 65 7F 00 00 00  00 03 80 97 AD 68 1E 
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Successfully sent 93 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:50] [ INFO ] [DTLS   ] SSL read: 44 bytes
+[2025-07-13T13:20:05] [ INFO ] [DTLS   ] SSL read: 44 bytes
 
-[2025-07-13T09:27:50] [DEBUG ] [ SCTP  ] Message received: Length=74, Stream=0
-[2025-07-13T09:27:50] [ INFO ] [ F1AP  ] Processing UE Context Release Command received from the Central Unit (CU).
-[2025-07-13T09:27:50] [ INFO ] [ F1AP  ] Initiating the UE Context Release Complete transmission to the Central Unit (CU).
-[2025-07-13T09:27:50] [DEBUG ] [ F1AP  ] Forwarding UE Context Release Complete to SCTP Task.
-[2025-07-13T09:27:50] [ INFO ] [ F1AP  ] UE Context Release Complete Transmisson Status [from CU]: [0;32mSuccessfull[0m
-[2025-07-13T09:27:50] [ INFO ] [DTLS   ] Encrypted buffer: 20 bytes
-[2025-07-13T09:27:50] [ INFO ] [DTLS   ] SSL Write: 20 bytes
-[2025-07-13T09:27:50] [ INFO ] [ SCTP  ] Sending the message (enc):
+[2025-07-13T13:20:05] [DEBUG ] [ SCTP  ] Message received: Length=74, Stream=0
+[2025-07-13T13:20:05] [ INFO ] [ F1AP  ] Processing UE Context Release Command received from the Central Unit (CU).
+[2025-07-13T13:20:06] [ INFO ] [ F1AP  ] Initiating the UE Context Release Complete transmission to the Central Unit (CU).
+[2025-07-13T13:20:06] [DEBUG ] [ F1AP  ] Forwarding UE Context Release Complete to SCTP Task.
+[2025-07-13T13:20:06] [ INFO ] [ F1AP  ] UE Context Release Complete Transmisson Status [from CU]: [0;32mSuccessfull[0m
+[2025-07-13T13:20:06] [ INFO ] [DTLS   ] Encrypted buffer: 20 bytes
+[2025-07-13T13:20:06] [ INFO ] [DTLS   ] SSL Write: 20 bytes
+[2025-07-13T13:20:06] [ INFO ] [ SCTP  ] Sending the message (enc):
 40 06 00 10 00 00 02 00  28 00 02 00 01 00 29 00 
-03 40 59 5C 
-[2025-07-13T09:27:50] [DEBUG ] [ SCTP  ] Successfully sent 50 encrypted bytes on stream 0 for assoc_id 1871
+03 40 96 0E 
+[2025-07-13T13:20:06] [DEBUG ] [ SCTP  ] Successfully sent 50 encrypted bytes on stream 0 for assoc_id 1877
 
-[2025-07-13T09:27:56] [ERROR ] [DTLS   ] SSL failed with SSL_ERROR_SSL
-[2025-07-13T09:27:56] [ERROR ] [ SCTP  ] Received shutdown notification. Closing connection.
-[2025-07-13T09:27:57] [ INFO ] [ F1AP  ] Current layer initialised and system status is [0;32mHealthy[0m. Detecting the subsequent layer and initialising connection with the subsequent layer.
+[2025-07-13T13:20:09] [ERROR ] [DTLS   ] SSL failed with SSL_ERROR_SSL
+[2025-07-13T13:20:09] [ERROR ] [ SCTP  ] Received shutdown notification. Closing connection.
+[2025-07-13T13:20:09] [ INFO ] [ F1AP  ] Current layer initialised and system status is [0;32mHealthy[0m. Detecting the subsequent layer and initialising connection with the subsequent layer.
 
 
