@@ -1,10 +1,11 @@
 <table>
   <tr>
-    <td><img src="../images/coranlabs-logo.png.png" alt="Q-RAN Logo" width="50"/></td>
+    <td><img src="../assets/2.png" alt="Q-RAN Logo" width=100"/></td>
     <td><h1 style="margin-left: 10px;">Setting Up Server for Q-RAN</h1></td>
   </tr>
 </table>
 
+---
 
 ### 1 BIOS Settings
 
