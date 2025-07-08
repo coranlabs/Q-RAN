@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td><img src="../assets/2.png" alt="Q-RAN Logo" width=100"/></td>
+    <td><img src="../images/coranlabs-logo.png" alt="Q-RAN Logo" width=100"/></td>
     <td><h1 style="margin-left: 10px;">Building Q-RAN</h1></td>
   </tr>
 </table>

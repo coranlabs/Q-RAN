@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td><img src="../assets/2.png" alt="Q-RAN Logo" width=100"/></td>
+    <td><img src="../images/coranlabs-logo.png" alt="Q-RAN Logo" width=100"/></td>
     <td><h1 style="margin-left: 10px;">Running Q-RAN</h1></td>
   </tr>
 </table>
@@ -164,7 +164,7 @@ SCTP_INIT_MSG
 ```
 
 ###  UE stats logs :
-<img width="914" height="744" alt="UE_Stats" src="../assets/UE_Stats.png" />
+<img width="914" height="744" alt="UE_Stats" src="../images/UE_Stats.png" />
 
 ---
 

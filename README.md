@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td><img src="assets/2.png" alt="Q-RAN Logo" width="80"/></td>
+    <td><img src="images/coranlabs-logo.png" alt="Q-RAN Logo" width="80"/></td>
     <td><h1 style="margin-left: 10px;">Q-RAN: Quantum Secure O-RAN</h1></td>
   </tr>
 </table>
@@ -62,7 +62,7 @@ It secures all critical RAN interfaces using modern quantum-safe cryptography an
 ## Logs Demo
 
 <p align="center">
-  <img src="assets/logs_demo.gif" alt="Q-RAN Logs Scroll" width="95%"/>
+  <img src="images/logs_demo.gif" alt="Q-RAN Logs Scroll" width="95%"/>
 </p>
 
 > Real-time PQ handshake and DTLS logs from live Q-RAN ARIA Deployment
