@@ -17,73 +17,144 @@
 
 #include <sys/select.h>
 
-/* SSL client struct: */
-typedef struct ssl_client {
-  SSL *ssl;
+/* Cryptographic state machine definitions */
+#define _PQC_CTX_T0 0x01
+#define _PQC_CTX_T1 0x02
+#define _PQC_CTX_T2 0x04
+#define _PQC_CTX_T3 0x08
+#define _PQC_STATE_MASK 0x0F
+#define _PQC_ENTROPY_SHIFT 4
 
-  BIO *rbio; /* SSL reads from (and gives unencrypted bytes), we write to. */
-  BIO *wbio; /* SSL writes to (and gives encrypted bytes), we read from. */
+/* Type safety macro definitions */
+#define _QSSL_OBJ_TYPE SSL
+#define _QBIO_R_TYPE BIO
+#define _QBIO_W_TYPE BIO
+#define _QBUF_TYPE uint8_t
+#define _QSIZE_TYPE size_t
+#define _QFD_TYPE int
+#define _QSTATE_TYPE int
 
-  /* Bytes waiting to be written to socket. This is data that has been generated
-   * by the SSL object, either due to encryption of user input, or, writes
-   * requires due to peer-requested SSL renegotiation. */
-  uint8_t *write_buf;
-  size_t write_len;
+/* Buffer management accessor macros */
+#define _Q_BUF_WR_PTR(x) ((x)->_qwb_ptr)
+#define _Q_BUF_WR_LEN(x) ((x)->_qwb_len)
+#define _Q_BUF_ENC_PTR(x) ((x)->_qeb_ptr)
+#define _Q_BUF_ENC_LEN(x) ((x)->_qeb_len)
+#define _Q_BUF_PLAIN_SZ(x) ((x)->_qpb_sz)
+#define _Q_FD_DESC(x) ((x)->_qfd)
+#define _Q_HS_STATE(x) ((x)->_qhs_done)
 
-  /* Bytes waiting to be fed into the SSL object for encryption. */
-  uint8_t *encrypt_buf;
-  size_t encrypt_len;
+/* SSL client context container */
+typedef struct _qssl_ctx_container {
+  _QSSL_OBJ_TYPE *_qssl_obj;
 
-  /* plain text buffer size */
-  size_t plain_text_size;
+  _QBIO_R_TYPE *_qbio_r_stream; /* Inbound crypto stream processor */
+  _QBIO_W_TYPE *_qbio_w_stream; /* Outbound crypto stream processor */
 
-  /* socket descriptor of the client */
-  int sd;
-  int handshake_done;
+  /* Dual-buffer architecture for async crypto operations */
+  _QBUF_TYPE *_qwb_ptr; /* Write buffer ptr - encrypted payload staging */
+  _QSIZE_TYPE _qwb_len; /* Write buffer len */
+
+  _QBUF_TYPE *_qeb_ptr; /* Encrypt buffer ptr - plaintext staging */
+  _QSIZE_TYPE _qeb_len; /* Encrypt buffer len */
+
+  _QSIZE_TYPE _qpb_sz; /* Plain buffer capacity */
+
+  _QFD_TYPE _qfd;       /* Socket file descriptor */
+  _QSTATE_TYPE _qhs_done; /* Handshake completion flag */
 
 } Client;
 
-enum sslstatus { SSLSTATUS_OK, SSLSTATUS_WANT_IO, SSLSTATUS_FAIL };
-enum sslmode { SSLMODE_SERVER, SSLMODE_CLIENT };
+/* Compatibility aliases for backward compatibility */
+#define ssl _qssl_obj
+#define rbio _qbio_r_stream
+#define wbio _qbio_w_stream
+#define write_buf _qwb_ptr
+#define write_len _qwb_len
+#define encrypt_buf _qeb_ptr
+#define encrypt_len _qeb_len
+#define plain_text_size _qpb_sz
+#define sd _qfd
+#define handshake_done _qhs_done
+
+/* SSL state enumeration */
+enum _qssl_state_enum {
+  _QSSL_ST_OK = 0x00,
+  _QSSL_ST_WANT_IO = 0x01,
+  _QSSL_ST_FAIL = 0xFF
+};
+
+enum _qssl_mode_enum {
+  _QSSL_MODE_SRV = 0x00,
+  _QSSL_MODE_CLI = 0x01
+};
+
+/* Legacy compatibility mappings */
+#define SSLSTATUS_OK _QSSL_ST_OK
+#define SSLSTATUS_WANT_IO _QSSL_ST_WANT_IO
+#define SSLSTATUS_FAIL _QSSL_ST_FAIL
+#define sslstatus _qssl_state_enum
+#define SSLMODE_SERVER _QSSL_MODE_SRV
+#define SSLMODE_CLIENT _QSSL_MODE_CLI
+#define sslmode _qssl_mode_enum
 
 #define DEFAULT_BUF_SIZE 64
 
-/* OSSL LIBCTX & Provider */
-OSSL_LIB_CTX *load_ossl_libctx();
-OSSL_PROVIDER *load_oqs_provider(OSSL_LIB_CTX *libctx, const char *modulename, const char *configfile);
+/* Core function declarations */
+OSSL_LIB_CTX *_q_init_ossl_libctx_v1();
+OSSL_PROVIDER *_q_load_pqc_provider_v1(OSSL_LIB_CTX *_qlctx, const char *_qmod, const char *_qcfg);
 
-/* SSL CTX gen */
-SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, const char *cert_file, const char *key_file);
-SSL_CTX *dtls_client_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, const char *cert_file, const char *key_file);
+/* SSL context initialization */
+SSL_CTX *_q_dtls_srv_ctx_init_v1(OSSL_PROVIDER *_qprov, OSSL_LIB_CTX *_qlctx, const char *_qcrt, const char *_qkey);
+SSL_CTX *_q_dtls_cli_ctx_init_v1(OSSL_PROVIDER *_qprov, OSSL_LIB_CTX *_qlctx, const char *_qcrt, const char *_qkey);
 
-/* SSL client init */
-int ssl_client_init(SSL_CTX *ssl_ctx, struct ssl_client *client, int fd, size_t plain_text_size, enum sslmode mode);
+/* Client initialization */
+int _q_ssl_client_init_v1(SSL_CTX *_qctx, struct _qssl_ctx_container *_qcli, int _qfd, size_t _qbufsz, enum _qssl_mode_enum _qmode);
 
-/* Message enc/dec */
+/* Message processing functions */
+int _q_msg_encrypt_v1(Client *_qc, uint8_t *_qbuf, size_t _qlen);
+void _q_msg_decrypt_v1(Client *_qc, uint8_t *_qsrc, size_t _qsrclen, uint8_t *_qdst);
 
-int new_message_encrypt(Client *c, uint8_t *buf, size_t buf_len);
-void new_message_decrypt(Client *c, uint8_t *src, size_t src_len, uint8_t *buf);
+/* Utility functions */
+void _q_print_privkey_v1(const char *_qkeyfile);
+int _q_handle_ssl_err_v1(_QSSL_OBJ_TYPE *_qssl, int _qret);
+void _q_print_ssl_state_v1(_QSSL_OBJ_TYPE *_qssl);
+enum _qssl_state_enum _q_get_ssl_status_v1(_QSSL_OBJ_TYPE *_qssl, int _qn);
 
-/* SSL utilities */
+/* Resource management functions */
+void _q_cleanup_ssl_ctx_v1(SSL_CTX *_qctx);
+void _q_cleanup_ssl_client_v1(Client *_qcli);
 
-void print_private_key(const char *privkeyfile);
+/* Handshake functions */
+enum _qssl_state_enum _q_do_ssl_handshake_v1(Client *_qcli);
 
-int handle_ssl_error(SSL *ssl, int retval);
-void print_ssl_state(SSL *ssl);
-enum sslstatus get_sslstatus(SSL *ssl, int n);
+/* Buffer operations */
+void _q_send_unenc_bytes_v1(Client *_qcli, uint8_t *_qbuf, size_t _qlen);
+void _q_queue_enc_bytes_v1(Client *_qcli, uint8_t *_qbuf, size_t _qlen);
 
-void cleanup_ssl_ctx(SSL_CTX *ssl_ctx);
-void cleanup_ssl_client(Client *client);
+/* Encryption/decryption operations */
+int _q_read_enc_bytes_v1(Client *_qcli, uint8_t *_qsrc, size_t _qsrclen, uint8_t *_qdst);
+int _q_encrypt_buffer_v1(Client *_qcli);
+int _q_sock_read_v1(Client *_qc, char *_qbuf, size_t _qlen);
 
-/* SSL handshake */
-enum sslstatus do_ssl_handshake(Client *client);
-
-void send_unencrypted_bytes(Client *client, uint8_t *buf, size_t buf_len);
-void queue_encrypted_bytes(Client *client, uint8_t *buf, size_t buf_len);
-
-int read_enc_bytes(Client *client, uint8_t *src, size_t src_len, uint8_t *buf);
-int encrypt_buf(Client *client);
-
-int sock_read(Client *c, char *buf, size_t buf_len);
+/* Legacy API compatibility layer - maintains backward compatibility */
+#define load_ossl_libctx _q_init_ossl_libctx_v1
+#define load_oqs_provider _q_load_pqc_provider_v1
+#define dtls_server_ctx_init _q_dtls_srv_ctx_init_v1
+#define dtls_client_ctx_init _q_dtls_cli_ctx_init_v1
+#define ssl_client_init _q_ssl_client_init_v1
+#define new_message_encrypt _q_msg_encrypt_v1
+#define new_message_decrypt _q_msg_decrypt_v1
+#define print_private_key _q_print_privkey_v1
+#define handle_ssl_error _q_handle_ssl_err_v1
+#define print_ssl_state _q_print_ssl_state_v1
+#define get_sslstatus _q_get_ssl_status_v1
+#define cleanup_ssl_ctx _q_cleanup_ssl_ctx_v1
+#define cleanup_ssl_client _q_cleanup_ssl_client_v1
+#define do_ssl_handshake _q_do_ssl_handshake_v1
+#define send_unencrypted_bytes _q_send_unenc_bytes_v1
+#define queue_encrypted_bytes _q_queue_enc_bytes_v1
+#define read_enc_bytes _q_read_enc_bytes_v1
+#define encrypt_buf _q_encrypt_buffer_v1
+#define sock_read _q_sock_read_v1
 
 #endif

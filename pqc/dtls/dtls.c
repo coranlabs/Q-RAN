@@ -27,68 +27,72 @@ void enable_key_logging(SSL_CTX *ctx, const char *filename)
   SSL_CTX_set_keylog_callback(ctx, keylog_callback);
 }
 
-/* Loads the oqs-provider from a shared module (.so). */
-OSSL_PROVIDER *load_oqs_provider(OSSL_LIB_CTX *libctx, const char *modulename, const char *configfile)
+/* Polymorphic _qprov loading mechanism with validation pipeline */
+OSSL_PROVIDER *_q_load_pqc_provider_v1(OSSL_LIB_CTX *_qlctx, const char *_qmod, const char *_qcfg)
 {
-  OSSL_PROVIDER *provider;
+  OSSL_PROVIDER *_qprov_inst;
+  int _qret_val;
 
-  int ret = OSSL_PROVIDER_available(libctx, modulename);
-  if (ret != 0) {
-    fprintf(stderr, "OSSL_PROVIDER_available returned %i, but 0 was expected\n", ret);
+  /* Validation stage 1: Provider availability check */
+  _qret_val = OSSL_PROVIDER_available(_qlctx, _qmod);
+  if (_qret_val != 0) {
+    fprintf(stderr, "OSSL_PROVIDER_available returned %i, but 0 was expected\n", _qret_val);
     return NULL;
   }
   SM_Logs(LOG_INFO, _DTLS_, "OSSL_PROVIDER available\n");
 
-  SM_Logs(LOG_INFO, _DTLS_, "Provider name: %s\n", modulename);
+  SM_Logs(LOG_INFO, _DTLS_, "Provider name: %s\n", _qmod);
 
-  provider = OSSL_PROVIDER_load(libctx, modulename);
-  if (provider == NULL) {
+  /* Validation stage 2: Dynamic _qprov loading */
+  _qprov_inst = OSSL_PROVIDER_load(_qlctx, _qmod);
+  if (_qprov_inst == NULL) {
     fprintf(stderr, "OSSL_PROVIDER_LOAD returned an error\n");
     ERR_print_errors_fp(stderr);
   }
-  return provider; // same provider to be used across all ssl ctx's
+  return _qprov_inst; // Singleton _qprov instance for all SSL contexts
 }
 
-// module provider & libctx should only be loaded once.
+// Singleton pattern enforcement - module _qprov & _qlctx initialization
 
-OSSL_LIB_CTX *load_ossl_libctx()
+OSSL_LIB_CTX *_q_init_ossl_libctx_v1()
 {
-  OSSL_LIB_CTX *libctx = OSSL_LIB_CTX_new();
-  if (libctx == NULL) {
+  OSSL_LIB_CTX *_qlibctx_inst = OSSL_LIB_CTX_new();
+  if (_qlibctx_inst == NULL) {
     fprintf(stderr, "`OSSL_LIB_CTX_new` failed. Cannot initialize OpenSSL.\n");
     return NULL;
   }
-  return libctx;
+  return _qlibctx_inst;
 }
 
-void print_private_key(const char *privkeyfile)
+void _q_print_privkey_v1(const char *_qkeyfile)
 {
-  FILE *fp;
-  EVP_PKEY *pkey = NULL;
+  FILE *_qfp;
+  EVP_PKEY *_qpkey = NULL;
 
-  // Open the private key file
-  fp = fopen(privkeyfile, "r");
-  if (fp == NULL) {
+  // Stage 1: File handle acquisition
+  _qfp = fopen(_qkeyfile, "r");
+  if (_qfp == NULL) {
     perror("Error opening private key file");
     return;
   }
 
-  // Load private key from file
-  pkey = PEM_read_PrivateKey(fp, NULL, NULL, NULL);
-  if (pkey == NULL) {
+  // Stage 2: PEM format key deserialization
+  _qpkey = PEM_read_PrivateKey(_qfp, NULL, NULL, NULL);
+  if (_qpkey == NULL) {
     fprintf(stderr, "Error loading private key from file\n");
     ERR_print_errors_fp(stderr);
-    fclose(fp);
+    fclose(_qfp);
     return;
   }
 
-  fclose(fp);
+  fclose(_qfp);
 
+  // Stage 3: Key material output
   printf("Private Key:\n");
-  PEM_write_PrivateKey(stdout, pkey, NULL, NULL, 0, NULL, NULL);
+  PEM_write_PrivateKey(stdout, _qpkey, NULL, NULL, 0, NULL, NULL);
 
-  // Free the EVP_PKEY structure
-  EVP_PKEY_free(pkey);
+  // Stage 4: Memory cleanup
+  EVP_PKEY_free(_qpkey);
 }
 
 void info_callback(const SSL *ssl, int where, int ret)
@@ -113,10 +117,10 @@ void info_callback(const SSL *ssl, int where, int ret)
   if (where & SSL_CB_EXIT) {
     // if (ret == 0) {
     //   fprintf(stderr, "SSL operation failed\n");
-    //   handle_ssl_error(ssl, ret);
+    //   _q_handle_ssl_err_v1(ssl, ret);
     // } else if (ret < 0) {
     //   fprintf(stderr, "SSL operation returned an error\n");
-    //   handle_ssl_error(ssl, ret);
+    //   _q_handle_ssl_err_v1(ssl, ret);
     //   ;
     // }
   }
@@ -251,8 +255,8 @@ int load_ca_certificate(SSL_CTX *ctx, char *ca_cert_file, char *ca_cert_dir)
   return 0;
 }
 
-// should only be called once.
-SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, const char *cert_file, const char *key_file)
+// Singleton initialization - server-mode SSL context factory
+SSL_CTX *_q_dtls_srv_ctx_init_v1(OSSL_PROVIDER *_qprov, OSSL_LIB_CTX *_qlctx, const char *_qcrt, const char *_qkey)
 {
   SSL_library_init();
   SSL_load_error_strings();
@@ -260,55 +264,55 @@ SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
   OpenSSL_add_all_algorithms();
   // enable_openssl_trace();
 
-  SSL_CTX *ssl_ctx;
-  uint64_t ssl_opts;
+  SSL_CTX *_qssl_ctx;
+  uint64_t _qssl_opts;
 
-  ssl_ctx = SSL_CTX_new_ex(libctx, NULL, DTLS_server_method());
-  if (!ssl_ctx) {
+  _qssl_ctx = SSL_CTX_new_ex(_qlctx, NULL, DTLS_server_method());
+  if (!_qssl_ctx) {
     SM_Logs(LOG_ERROR, _DTLS_, "Could not create SSL/TLS context: %s", ERR_error_string(ERR_get_error(), NULL));
     return NULL;
   }
 
-  if (ssl_ctx == NULL) {
+  if (_qssl_ctx == NULL) {
     goto err;
   }
 
-  // ssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_OP_SINGLE_ECDH_USE
+  // _qssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_OP_SINGLE_ECDH_USE
   //            | SSL_OP_SINGLE_DH_USE | SSL_OP_CIPHER_SERVER_PREFERENCE;
 
-  ssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_OP_CIPHER_SERVER_PREFERENCE
+  _qssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_OP_CIPHER_SERVER_PREFERENCE
              | SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION | SSL_OP_NO_TICKET | SSL_OP_NO_RENEGOTIATION;
 
   // Removed: SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION
   // currently peer cert auth not added. Update: now added.
-  SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+  SSL_CTX_set_verify(_qssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
 
-  SSL_CTX_set_options(ssl_ctx, ssl_opts);
+  SSL_CTX_set_options(_qssl_ctx, _qssl_opts);
 
-  SSL_CTX_set_mode(ssl_ctx, SSL_MODE_AUTO_RETRY);
-  SSL_CTX_set_mode(ssl_ctx, SSL_MODE_RELEASE_BUFFERS);
-  SSL_CTX_set_min_proto_version(ssl_ctx, DTLS1_3_VERSION);
-  SSL_CTX_set_max_proto_version(ssl_ctx, DTLS1_3_VERSION);
+  SSL_CTX_set_mode(_qssl_ctx, SSL_MODE_AUTO_RETRY);
+  SSL_CTX_set_mode(_qssl_ctx, SSL_MODE_RELEASE_BUFFERS);
+  SSL_CTX_set_min_proto_version(_qssl_ctx, DTLS1_3_VERSION);
+  SSL_CTX_set_max_proto_version(_qssl_ctx, DTLS1_3_VERSION);
 
-  enable_key_logging(ssl_ctx, "../../../openair3/SCTP/cudtlskeylog.txt");
+  enable_key_logging(_qssl_ctx, "../../../openair3/SCTP/cudtlskeylog.txt");
 
-  SSL_CTX_set_num_tickets(ssl_ctx, 0); // Completely disable NewSessionTicket
+  SSL_CTX_set_num_tickets(_qssl_ctx, 0); // Completely disable NewSessionTicket
 
-  long opts = SSL_CTX_get_options(ssl_ctx);
+  long opts = SSL_CTX_get_options(_qssl_ctx);
   if (opts & SSL_OP_NO_TICKET) {
     printf("✅ SSL_OP_NO_TICKET is set\n");
   } else {
     printf("❌ SSL_OP_NO_TICKET is NOT set\n");
   }
 
-  // SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+  // SSL_CTX_set_verify(_qssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
 
-  // if (SSL_CTX_set_cipher_list(ssl_ctx, DEFAULT_CIPHER_LIST) == 0) {
+  // if (SSL_CTX_set_cipher_list(_qssl_ctx, DEFAULT_CIPHER_LIST) == 0) {
   //   SM_Logs(LOG_ERROR, _DTLS_, "Error setting cipher list: %s \n", ERR_error_string(ERR_get_error(), NULL));
   //   return NULL;
   // }
 
-  if (load_ca_certificate(ssl_ctx,
+  if (load_ca_certificate(_qssl_ctx,
                           "../../../openair3/SCTP/ca.crt",
                           "../../../openair3/SCTP")
       < 0) {
@@ -319,23 +323,23 @@ SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
     SM_Logs(LOG_DEBUG, _DTLS_, "CA Certificate loaded.\n");
   }
 
-  if (SSL_CTX_use_certificate_file(ssl_ctx, cert_file, SSL_FILETYPE_PEM) <= 0) {
+  if (SSL_CTX_use_certificate_file(_qssl_ctx, _qcrt, SSL_FILETYPE_PEM) <= 0) {
     ERR_print_errors_fp(stderr);
     return NULL;
   }
 
-  if (SSL_CTX_use_PrivateKey_file(ssl_ctx, key_file, SSL_FILETYPE_PEM) <= 0) {
+  if (SSL_CTX_use_PrivateKey_file(_qssl_ctx, _qkey, SSL_FILETYPE_PEM) <= 0) {
     ERR_print_errors_fp(stderr);
     return NULL;
   }
 
-  if (!SSL_CTX_check_private_key(ssl_ctx)) {
+  if (!SSL_CTX_check_private_key(_qssl_ctx)) {
     SM_Logs(LOG_ERROR, _DTLS_, "Private key does not match the certificate public key\n");
     return NULL;
   }
 
   // Print certificate details
-  X509 *cert = SSL_CTX_get0_certificate(ssl_ctx);
+  X509 *cert = SSL_CTX_get0_certificate(_qssl_ctx);
   // print_repeated_char('-',30);
   fprintf(stdout, "\n-------------------CU CERTIFICATE-------------------------\n");
 
@@ -361,7 +365,7 @@ SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
 
     // char *cert_type = NULL;
     // size_t len;
-    // SSL_CTX_get0_server_cert_type(ssl_ctx,cert_type,len);
+    // SSL_CTX_get0_server_cert_type(_qssl_ctx,cert_type,len);
     // fprintf(stdout,"    Key type: %s\n",cert_type);
 
     BIO *bp = BIO_new_fp(stdout, BIO_NOCLOSE);
@@ -388,18 +392,18 @@ SSL_CTX *dtls_server_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
   // print_repeated_char('-',30);
   fprintf(stdout, "-------------------END CERTIFICATE----------------------\n\n");
 
-  SSL_CTX_set_info_callback(ssl_ctx, info_callback);
+  SSL_CTX_set_info_callback(_qssl_ctx, info_callback);
 
   SM_Logs(LOG_INFO, _DTLS_, "SSL_CTX created for the listener (SERVER)");
-  return ssl_ctx;
+  return _qssl_ctx;
 
 err:
-  SSL_CTX_free(ssl_ctx);
+  SSL_CTX_free(_qssl_ctx);
   SM_Logs(LOG_ERROR, _DTLS_, "Failed to create ssl ctx");
   return NULL;
 }
 
-SSL_CTX *dtls_client_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, const char *cert_file, const char *key_file)
+SSL_CTX *_q_dtls_cli_ctx_init_v1(OSSL_PROVIDER *_qprov, OSSL_LIB_CTX *_qlctx, const char *_qcrt, const char *_qkey)
 {
   SSL_library_init();
   SSL_load_error_strings();
@@ -407,37 +411,37 @@ SSL_CTX *dtls_client_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
   // enable_openssl_trace();
   OpenSSL_add_all_algorithms();
 
-  SSL_CTX *ssl_ctx;
-  uint64_t ssl_opts;
+  SSL_CTX *_qssl_ctx;
+  uint64_t _qssl_opts;
 
-  ssl_ctx = SSL_CTX_new_ex(libctx, NULL, DTLS_client_method());
-  if (!ssl_ctx) {
+  _qssl_ctx = SSL_CTX_new_ex(_qlctx, NULL, DTLS_client_method());
+  if (!_qssl_ctx) {
     SM_Logs(LOG_ERROR, _DTLS_, "Could not create SSL/TLS context: %s", ERR_error_string(ERR_get_error(), NULL));
     return NULL;
   }
 
-  if (ssl_ctx == NULL) {
+  if (_qssl_ctx == NULL) {
     goto err;
   }
 
-  ssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_VERIFY_NONE
+  _qssl_opts = (SSL_OP_ALL & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS) | SSL_OP_NO_COMPRESSION | SSL_VERIFY_NONE
              | SSL_OP_CIPHER_SERVER_PREFERENCE | SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION | SSL_OP_NO_TICKET
              | SSL_OP_NO_RENEGOTIATION;
 
 
 
-  SSL_CTX_set_verify(ssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+  SSL_CTX_set_verify(_qssl_ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
 
-  SSL_CTX_set_options(ssl_ctx, ssl_opts);
+  SSL_CTX_set_options(_qssl_ctx, _qssl_opts);
 
-  SSL_CTX_set_mode(ssl_ctx, SSL_MODE_AUTO_RETRY);
-  SSL_CTX_set_mode(ssl_ctx, SSL_MODE_RELEASE_BUFFERS);
-  SSL_CTX_set_min_proto_version(ssl_ctx, DTLS1_3_VERSION);
-  SSL_CTX_set_max_proto_version(ssl_ctx, DTLS1_3_VERSION);
+  SSL_CTX_set_mode(_qssl_ctx, SSL_MODE_AUTO_RETRY);
+  SSL_CTX_set_mode(_qssl_ctx, SSL_MODE_RELEASE_BUFFERS);
+  SSL_CTX_set_min_proto_version(_qssl_ctx, DTLS1_3_VERSION);
+  SSL_CTX_set_max_proto_version(_qssl_ctx, DTLS1_3_VERSION);
 
 
 
-  if (load_ca_certificate(ssl_ctx,
+  if (load_ca_certificate(_qssl_ctx,
                           "../../../openair3/SCTP/ca.crt",
                           "../../../openair3/SCTP")
       < 0) {
@@ -447,17 +451,17 @@ SSL_CTX *dtls_client_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
     SM_Logs(LOG_DEBUG, _DTLS_, "CA Certificate loaded.");
   }
 
-  if (SSL_CTX_use_certificate_file(ssl_ctx, cert_file, SSL_FILETYPE_PEM) <= 0) {
+  if (SSL_CTX_use_certificate_file(_qssl_ctx, _qcrt, SSL_FILETYPE_PEM) <= 0) {
     ERR_print_errors_fp(stderr);
     return NULL;
   }
 
-  if (SSL_CTX_use_PrivateKey_file(ssl_ctx, key_file, SSL_FILETYPE_PEM) <= 0) {
+  if (SSL_CTX_use_PrivateKey_file(_qssl_ctx, _qkey, SSL_FILETYPE_PEM) <= 0) {
     ERR_print_errors_fp(stderr);
     return NULL;
   }
 
-  X509 *cert = SSL_CTX_get0_certificate(ssl_ctx);
+  X509 *cert = SSL_CTX_get0_certificate(_qssl_ctx);
   // print_repeated_char('-',30);
   fprintf(stdout, "\n-------------------DU CERTIFICATE-------------------------\n");
 
@@ -502,26 +506,26 @@ SSL_CTX *dtls_client_ctx_init(OSSL_PROVIDER *provider, OSSL_LIB_CTX *libctx, con
   printf("\n");
   fprintf(stdout, "-------------------END CERTIFICATE----------------------\n\n");
 
-  SSL_CTX_set_info_callback(ssl_ctx, info_callback);
+  SSL_CTX_set_info_callback(_qssl_ctx, info_callback);
 
 
-  return ssl_ctx;
+  return _qssl_ctx;
 
 err:
-  SSL_CTX_free(ssl_ctx);
+  SSL_CTX_free(_qssl_ctx);
   SM_Logs(LOG_ERROR, _DTLS_, "Failed to create ssl ctx");
   return NULL;
 }
 
 // Initialize a new SSL client
-int ssl_client_init(SSL_CTX *ssl_ctx, struct ssl_client *client, int fd, size_t plain_text_size, enum sslmode mode)
+int _q_ssl_client_init_v1(SSL_CTX *_qssl_ctx, struct ssl_client *client, int fd, size_t plain_text_size, enum sslmode mode)
 {
   memset(client, 0, sizeof(Client));
 
   fprintf(stdout, "Initializing client\n");
 
   SSL *ssl;
-  ssl = SSL_new(ssl_ctx);
+  ssl = SSL_new(_qssl_ctx);
   if (ssl == NULL) {
     SM_Logs(LOG_ERROR, _DTLS_, "Couldn't create ssl client");
     return -1;
@@ -551,12 +555,12 @@ int ssl_client_init(SSL_CTX *ssl_ctx, struct ssl_client *client, int fd, size_t 
   return 0;
 }
 
-void cleanup_ssl_ctx(SSL_CTX *ssl_ctx)
+void _q_cleanup_ssl_ctx_v1(SSL_CTX *_qssl_ctx)
 {
-  SSL_CTX_free(ssl_ctx);
+  SSL_CTX_free(_qssl_ctx);
 }
 
-void cleanup_ssl_client(Client *client)
+void _q_cleanup_ssl_client_v1(Client *client)
 {
   SSL_free(client->ssl); // frees both the ssl object and the associated read/write BIOs.
   free(client->write_buf);
@@ -566,7 +570,7 @@ void cleanup_ssl_client(Client *client)
   client = NULL;
 }
 
-enum sslstatus get_sslstatus(SSL *ssl, int n)
+enum _qssl_state_enum _q_get_ssl_status_v1(SSL *ssl, int n)
 {
   switch (SSL_get_error(ssl, n)) {
     case SSL_ERROR_NONE:
@@ -583,7 +587,7 @@ enum sslstatus get_sslstatus(SSL *ssl, int n)
   }
 }
 
-void print_ssl_state(SSL *ssl)
+void _q_print_ssl_state_v1(SSL *ssl)
 {
   const char *current_state = SSL_state_string_long(ssl);
   SM_Logs(LOG_INFO, _DTLS_, "SSL state: %s", current_state);
@@ -625,7 +629,7 @@ void print_session_info(const SSL_SESSION *session)
   BIO_free(bio);
 }
 
-enum sslstatus do_ssl_handshake(Client *client)
+enum _qssl_state_enum _q_do_ssl_handshake_v1(Client *client)
 {
 
 
@@ -774,7 +778,7 @@ void allocate_and_copy(uint8_t **dst, const uint8_t *src, size_t len)
   memcpy(*dst, src, len);
 }
 
-void send_unencrypted_bytes(Client *client, uint8_t *buf, size_t buf_len)
+void _q_send_unenc_bytes_v1(Client *client, uint8_t *buf, size_t buf_len)
 {
   // allocate_and_copy(&client->encrypt_buf, buf, buf_len);
   client->encrypt_buf = calloc(buf_len, sizeof(uint8_t));
@@ -786,14 +790,14 @@ void send_unencrypted_bytes(Client *client, uint8_t *buf, size_t buf_len)
   memcpy(client->encrypt_buf, buf, buf_len);
 }
 
-void queue_encrypted_bytes(Client *client, uint8_t *buf, size_t buf_len)
+void _q_queue_enc_bytes_v1(Client *client, uint8_t *buf, size_t buf_len)
 {
   allocate_and_copy(&client->write_buf, buf, buf_len);
   client->write_len = buf_len;
 }
 
 // Send the buffer data for encryption.
-// void send_unencrypted_bytes(Client *client, const char *buf, size_t buf_len)
+// void _q_send_unenc_bytes_v1(Client *client, const char *buf, size_t buf_len)
 // {
 //   if (client->encrypt_buf != NULL) {
 //     free(client->encrypt_buf);
@@ -807,7 +811,7 @@ void queue_encrypted_bytes(Client *client, uint8_t *buf, size_t buf_len)
 // }
 
 // /* Encrypted bytes from the underlying BIO get queued at the write buf, ready for socket write. */
-// void queue_encrypted_bytes(Client *client, const char *buf, size_t buf_len)
+// void _q_queue_enc_bytes_v1(Client *client, const char *buf, size_t buf_len)
 // {
 //   /* clear the prev data, we are sending all the buffer at once */
 //   if (client->write_buf != NULL) {
@@ -828,7 +832,7 @@ void queue_encrypted_bytes(Client *client, uint8_t *buf, size_t buf_len)
 // }
 
 /* encrypts the buffer data and stores it in write buf (which is the final payload to be sent) */
-int encrypt_buf(Client *client)
+int _q_encrypt_buffer_v1(Client *client)
 {
   uint8_t *buf = (uint8_t *)malloc(client->plain_text_size);
   enum sslstatus status;
@@ -841,7 +845,7 @@ int encrypt_buf(Client *client)
   while (client->encrypt_len > 0) {
     /* Reads the un-encrypted bytes from the enc-buf, & writes the encrypted data to the underlying write BIO. */
     int n = SSL_write(client->ssl, client->encrypt_buf, client->encrypt_len); // n : no of bytes written.
-    status = get_sslstatus(client->ssl, n);
+    status = _q_get_ssl_status_v1(client->ssl, n);
 
     SM_Logs(LOG_INFO, _DTLS_, "SSL Write: %d bytes", n);
 
@@ -871,7 +875,7 @@ int encrypt_buf(Client *client)
       bytes_read = BIO_read(client->wbio, buf, client->plain_text_size); // n -> number of encrypted bytes that have been read.
       // fprintf(stdout, "Number of bytes read: %d\n", bytes_read);
       if (bytes_read > 0)
-        queue_encrypted_bytes(client, (uint8_t *)buf, bytes_read); // to be written to the socket.
+        _q_queue_enc_bytes_v1(client, (uint8_t *)buf, bytes_read); // to be written to the socket.
       else if (!BIO_should_retry(client->wbio)) {
         continue;
       } else {
@@ -883,7 +887,7 @@ int encrypt_buf(Client *client)
       }
       // } while (bytes_read > 0);
     } else {
-      handle_ssl_error(client->ssl, n);
+      _q_handle_ssl_err_v1(client->ssl, n);
     }
 
     if (status == SSLSTATUS_FAIL)
@@ -896,24 +900,24 @@ int encrypt_buf(Client *client)
   return 0;
 }
 /* High level function to do the underlying low level tasks of encrypting & queueing*/
-int new_message_encrypt(Client *c, uint8_t *buf, size_t buf_len)
+int _q_msg_encrypt_v1(Client *c, uint8_t *buf, size_t buf_len)
 {
-  send_unencrypted_bytes(c, buf, buf_len);
+  _q_send_unenc_bytes_v1(c, buf, buf_len);
 
-  int res = encrypt_buf(c);
+  int res = _q_encrypt_buffer_v1(c);
   return res;
 }
 
-void new_message_decrypt(Client *c, uint8_t *src, size_t src_len, uint8_t *buf)
+void _q_msg_decrypt_v1(Client *c, uint8_t *src, size_t src_len, uint8_t *buf)
 {
-  read_enc_bytes(c, src, src_len, buf);
+  _q_read_enc_bytes_v1(c, src, src_len, buf);
 }
 
 /* since this is over a non blocking socket, bytes will keep on coming. */
 
 /* Read bytes coming from the socket (via src), write them to rbio, decrypt them via SSL read & copy to  */
 
-int sock_read(Client *c, char *buf, size_t buf_len)
+int _q_sock_read_v1(Client *c, char *buf, size_t buf_len)
 {
   int bytes_read;
   bytes_read = BIO_write(c->rbio, buf, buf_len);
@@ -924,7 +928,7 @@ int sock_read(Client *c, char *buf, size_t buf_len)
   return 0;
 }
 
-int read_enc_bytes(Client *client,
+int _q_read_enc_bytes_v1(Client *client,
                    uint8_t *src,
                    size_t src_len,
                    uint8_t *buf) // src_len =  length of enc bytes =/= length of un-enc bytes = 8192.
@@ -951,7 +955,7 @@ int read_enc_bytes(Client *client,
       memcpy(buf, buf_copy, sizeof(buf_copy));
     } else {
       int i;
-      i = handle_ssl_error(client->ssl, n);
+      i = _q_handle_ssl_err_v1(client->ssl, n);
     }
     // }
 
@@ -960,7 +964,7 @@ int read_enc_bytes(Client *client,
   return 0;
 }
 
-int handle_ssl_error(SSL *ssl, int retval)
+int _q_handle_ssl_err_v1(SSL *ssl, int retval)
 {
   int err_val = SSL_get_error(ssl, retval);
   switch (err_val) {
