@@ -1,6 +1,9 @@
 # dtls/CMakeLists.txt
 
-set(dtls_sources dtls.c)
+set(dtls_sources
+    dtls.c
+    pqc_dispatch.c
+)
 
 add_library(DTLS ${dtls_sources})
 

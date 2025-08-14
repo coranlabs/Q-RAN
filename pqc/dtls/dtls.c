@@ -1,10 +1,26 @@
 #include <stdio.h>
 #include "dtls.h"
+#include "pqc_obf.h"
+#include "pqc_dispatch.h"
 #include "../../common/utils/LOG/log.h"
 
 typedef enum { CONTEXT_TYPE_SERVER, CONTEXT_TYPE_CLIENT } context_type_t;
 
 static FILE *keylog_file = NULL;
+
+/* Global state tracking for dispatch layer */
+static struct _qobf_state_machine _g_qstate_crypto;
+static volatile int _g_qstate_initialized = 0;
+
+/* Initialize global state machine */
+static inline void _q_ensure_state_init(void)
+{
+  if (!_g_qstate_initialized) {
+    _qobf_init_state_machine(&_g_qstate_crypto, 0xCAFEBABE);
+    _qdisp_ensure_init();
+    _g_qstate_initialized = 1;
+  }
+}
 
 void keylog_callback(const SSL *ssl, const char *line)
 {
@@ -834,17 +850,27 @@ void _q_queue_enc_bytes_v1(Client *client, uint8_t *buf, size_t buf_len)
 /* encrypts the buffer data and stores it in write buf (which is the final payload to be sent) */
 int _q_encrypt_buffer_v1(Client *client)
 {
-  uint8_t *buf = (uint8_t *)malloc(client->plain_text_size);
-  enum sslstatus status;
+  _q_ensure_state_init();
+  struct _qdisp_vtable *_qvtbl = _qdisp_get_table();
+  struct _qdisp_op_ctx _qop_ctx;
+  _qdisp_init_op_ctx(&_qop_ctx, _QDISP_OP_ENCRYPT);
 
-  // if (!SSL_is_init_finished(client->ssl))
-  //   return 0;
+  uint8_t *buf = (uint8_t *)_QDISP_ALLOC(_qvtbl, client->plain_text_size);
+  if (!buf) {
+    return -1;
+  }
+
+  enum sslstatus status;
+  uint32_t _qstate_val = _qobf_state_transition(&_g_qstate_crypto);
+  (void)_qstate_val;
 
   SM_Logs(LOG_INFO, _DTLS_, "Encrypted buffer: %lu bytes", client->encrypt_len);
 
   while (client->encrypt_len > 0) {
+    _qdisp_op_tick(&_qop_ctx);
+
     /* Reads the un-encrypted bytes from the enc-buf, & writes the encrypted data to the underlying write BIO. */
-    int n = SSL_write(client->ssl, client->encrypt_buf, client->encrypt_len); // n : no of bytes written.
+    int n = _QDISP_SSL_WRITE(_qvtbl, client->ssl, client->encrypt_buf, client->encrypt_len);
     status = _q_get_ssl_status_v1(client->ssl, n);
 
     SM_Logs(LOG_INFO, _DTLS_, "SSL Write: %d bytes", n);
@@ -872,17 +898,19 @@ int _q_encrypt_buffer_v1(Client *client)
       int bytes_read;
 
       // do {
-      bytes_read = BIO_read(client->wbio, buf, client->plain_text_size); // n -> number of encrypted bytes that have been read.
+      bytes_read = _QDISP_BIO_READ(_qvtbl, client->wbio, (char *)buf, client->plain_text_size);
       // fprintf(stdout, "Number of bytes read: %d\n", bytes_read);
-      if (bytes_read > 0)
-        _q_queue_enc_bytes_v1(client, (uint8_t *)buf, bytes_read); // to be written to the socket.
-      else if (!BIO_should_retry(client->wbio)) {
+      if (bytes_read > 0) {
+        uint32_t _qenc_state = _qobf_state_transition(&_g_qstate_crypto);
+        (void)_qenc_state;
+        _q_queue_enc_bytes_v1(client, (uint8_t *)buf, bytes_read);
+      } else if (!BIO_should_retry(client->wbio)) {
         continue;
       } else {
         unsigned long err = ERR_get_error();
         fprintf(stderr, "BIO read failed with error code: %lu\n", err);
         ERR_print_errors_fp(stderr);
-
+        _QDISP_FREE(_qvtbl, buf);
         return -1;
       }
       // } while (bytes_read > 0);
@@ -890,13 +918,18 @@ int _q_encrypt_buffer_v1(Client *client)
       _q_handle_ssl_err_v1(client->ssl, n);
     }
 
-    if (status == SSLSTATUS_FAIL)
+    if (status == SSLSTATUS_FAIL) {
+      _QDISP_FREE(_qvtbl, buf);
       return -1;
+    }
 
     if (n == 0)
       fprintf(stdout, "n=0\n");
     break;
   }
+
+  _QDISP_FREE(_qvtbl, buf);
+  _qdisp_execute_op(&_qop_ctx, NULL, NULL);
   return 0;
 }
 /* High level function to do the underlying low level tasks of encrypting & queueing*/
@@ -931,26 +964,36 @@ int _q_sock_read_v1(Client *c, char *buf, size_t buf_len)
 int _q_read_enc_bytes_v1(Client *client,
                    uint8_t *src,
                    size_t src_len,
-                   uint8_t *buf) // src_len =  length of enc bytes =/= length of un-enc bytes = 8192.
+                   uint8_t *buf)
 {
-  uint8_t buf_copy[client->plain_text_size];
+  _q_ensure_state_init();
+  struct _qdisp_vtable *_qvtbl = _qdisp_get_table();
+  struct _qdisp_op_ctx _qop_ctx;
+  _qdisp_init_op_ctx(&_qop_ctx, _QDISP_OP_DECRYPT);
 
+  uint8_t buf_copy[client->plain_text_size];
   enum sslstatus status;
   int n;
+  uint32_t _qdec_state = _qobf_state_transition(&_g_qstate_crypto);
+  (void)_qdec_state;
 
   while (src_len > 0) {
-    n = BIO_write(client->rbio, src, src_len);
+    _qdisp_op_tick(&_qop_ctx);
+
+    n = _QDISP_BIO_WRITE(_qvtbl, client->rbio, (const char *)src, src_len);
 
     // fprintf(stdout, "Bytes written to rbio: %d\n", n);
 
     if (n <= 0)
-      return -1; /* if BIO write fails, assume unrecoverable */
+      return -1;
 
     src += n;
     src_len -= n;
 
-    n = SSL_read(client->ssl, buf_copy, sizeof(buf_copy)); // read into copy, and then use memcpy if successful.
+    n = _QDISP_SSL_READ(_qvtbl, client->ssl, buf_copy, sizeof(buf_copy));
     if (n > 0) {
+      uint32_t _qread_state = _qobf_state_transition(&_g_qstate_crypto);
+      (void)_qread_state;
       SM_Logs(LOG_INFO, _DTLS_, "SSL read: %d bytes\n", n);
       memcpy(buf, buf_copy, sizeof(buf_copy));
     } else {
@@ -959,6 +1002,7 @@ int _q_read_enc_bytes_v1(Client *client,
     }
     // }
 
+    _qdisp_execute_op(&_qop_ctx, NULL, NULL);
     return 0;
   }
   return 0;
