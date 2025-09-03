@@ -1,12 +1,12 @@
 <table>
   <tr>
     <td><img src="images/coranlabs-logo.png" alt="Q-RAN Logo" width="80"/></td>
-    <td><h1 style="margin-left: 10px;">Q-RAN: Quantum Secure O-RAN</h1></td>
+    <td><h1 style="margin-left: 10px;">Q-RAN: Post-Quantum Secure O-RAN</h1></td>
   </tr>
 </table>
 
 **Q-RAN** is a made for research, post-quantum secure upgrade for the 5G Open RAN (O-RAN) architecture.  
-It secures all critical RAN interfaces using modern quantum-safe cryptography and is designed for future-proof telecom research.
+It secures all critical RAN interfaces using modern quantum-safe cryptography and is designed for future-proof telecom.
 
 ---
 
@@ -89,9 +89,6 @@ We acknowledge and appreciate the broader open-source community:
 - **[OAI](https://openairinterface.org/)** — as an architectural base for ran stack
 - **[QORE](https://github.com/CoranLabs/QORE/)** — Supported post Quantum safe 5G Core
 - **[OSC](https://github.com/o-ran-sc)** — for the xRAN library (7.2 split support) 
-- **[OpenSSL](https://www.openssl.org/)** — for secure TLS/DTLS foundation  
-- **[liboqs](https://github.com/open-quantum-safe/liboqs)** & **[oqs-provider](https://github.com/open-quantum-safe/oqs-provider)** — for quantum-safe crypto integration  
- 
 
 ---
 ## Documentation
@@ -104,6 +101,8 @@ For architecture diagrams, deployment guides, interface specs, and configuration
 
 - **Full IPSec support** across all interfaces  
 - **GPU Offloading** For accelerating PQ-DTLS  with **CUPQC** on NVIDIA GPU
+- **Migrate Other RAN Stacks** Migrate O-RAN Software Community DU_High, SRS Ran, SD-RAN to Post-Quantum Secure RANs
+- **Post-Quantum Secure SMO** Post-Quantum migration of O-RAN Software Community SMO, RICs
 - **HQC** Additional post-quantum key encapsulation mechanism under NIST consideration
 - **Falcon**  Compact and fast lattice-based digital signature scheme designed for constrained devices
 
@@ -112,7 +111,7 @@ For architecture diagrams, deployment guides, interface specs, and configuration
 
 We welcome research collaboration, issue reports, and integration ideas.
 
-📩 **Reach us at:** [contact@coranlabs.com](mailto:contact@coranlabs.com)
+**Reach us at:** [contact@coranlabs.com](mailto:contact@coranlabs.com)
 ---
 <p align="center">
   <a href="https://coranlabs.com" target="_blank">coranlabs.com</a>
